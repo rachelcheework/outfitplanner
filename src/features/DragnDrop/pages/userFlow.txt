@@ -1,0 +1,13 @@
+user flow
+
+1. user logs in 
+2. user gets directed to dropzone page
+3. user uploads a photo via dropzone
+4. if accepted, bg removal process starts
+5. if bg removal is successful, user can click 'redo' OR 'add to wardrobe'
+6. if user clicks 'redo', everything resets
+7. if user clicks 'add to wardrobe', modal pops up
+8. if user clicks 'cancel' on modal, modal closes
+9. if user doesn't fill in modal fields properly, user cannot click 'save'
+consider disabling button instead?
+10. if user fills in modal fields properly and clicks 'save', image with bg removed gets saved
