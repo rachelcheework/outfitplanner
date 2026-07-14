@@ -5,7 +5,7 @@ import SignUp from "./features/SignUp";
 import Login from "./features/Login";
 import Wrapper from "./features/Wrapper";
 import Wardrobe from "./features/WardrobeDisplay/pages/Wardrobe";
-import Outfits from "./features/Outfits";
+import Outfits from "./features/OutfitBuilder/pages/Outfits";
 import Dnd from "./features/DragnDrop/pages/Dnd";
 
 export default function App() {
@@ -28,7 +28,7 @@ export default function App() {
             </Route>
 
             {/* other pages */}
-            <Route path="/outfits" element={<Outfits />} />
+              <Route path="/outfits" element={<Outfits />} />
           </Route>
         </Route>
       </Routes>
