@@ -7,7 +7,7 @@ import wardrobeReducer, { initialEditingState } from "../reducer/wardrobeReducer
 import supabase from "../../../supabase-client";
 
 //data from table
-type ClothingItem = {
+export type ClothingItem = {
   id: number;
   itemName: string;
   category: ClothingCategory;
