@@ -7,6 +7,7 @@ import Wrapper from "./features/Wrapper";
 import Wardrobe from "./features/WardrobeDisplay/pages/Wardrobe";
 import Outfits from "./features/OutfitBuilder/pages/Outfits";
 import Dnd from "./features/DragnDrop/pages/Dnd";
+import OutfitPage from "./features/OutfitBuilder/pages/OutfitPage";
 
 export default function App() {
   return (
@@ -28,7 +29,7 @@ export default function App() {
             </Route>
 
             {/* other pages */}
-              <Route path="/outfits" element={<Outfits />} />
+              <Route path="/outfits" element={<OutfitPage />} />
           </Route>
         </Route>
       </Routes>
