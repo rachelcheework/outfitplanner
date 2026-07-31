@@ -5,7 +5,6 @@ import SignUp from "./features/SignUp";
 import Login from "./features/Login";
 import Wrapper from "./features/Wrapper";
 import Wardrobe from "./features/WardrobeDisplay/pages/Wardrobe";
-import Outfits from "./features/OutfitBuilder/pages/Outfits";
 import Dnd from "./features/DragnDrop/pages/Dnd";
 import OutfitPage from "./features/OutfitBuilder/pages/OutfitPage";
 
