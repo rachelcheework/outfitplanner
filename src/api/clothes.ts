@@ -19,9 +19,26 @@ type ClothesItemWithUrl = ClothesItem & {
 
 export default async function fetchClothesByCategory(category: ClothingCategory): Promise<ClothesItemWithUrl[]> {
   //fetch data from table
+
+  //do i include user here?
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) {
+    throw userError;
+  }
+
+  if (!user) {
+    throw new Error("You must be logged in.");
+  }
+
   const { data, error } = await supabase
     .from(CLOTHES_TABLE)
     .select("id, item_name, category, image_path")
+    .eq("user_id", user.id)
     .eq("category", category);
 
   if (error) {
