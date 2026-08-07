@@ -1,3 +1,4 @@
+import type { RefObject } from "react";
 import { Layer, Rect, Stage } from "react-konva";
 import type Konva from "konva";
 
@@ -10,7 +11,10 @@ type OutfitCanvasProps = {
   width: number;
   height: number;
   onSelectItem: (id: string | null) => void;
-  onChangeItems: (items: CanvasItem[]) => void;
+  onChangeItems: React.Dispatch<
+    React.SetStateAction<CanvasItem[]>
+  >;
+  stageRef: RefObject<Konva.Stage | null>;
 };
 
 export default function OutfitCanvas({
@@ -20,7 +24,9 @@ export default function OutfitCanvas({
   height,
   onSelectItem,
   onChangeItems,
+  stageRef,
 }: OutfitCanvasProps) {
+
   function updateItem(updatedItem: CanvasItem) {
     onChangeItems(
       items.map((item) =>
@@ -46,36 +52,40 @@ export default function OutfitCanvas({
     }
   }
 
-  return (
-    <Stage
-      width={width}
-      height={height}
-      onMouseDown={handleStagePointerDown}
-      onTouchStart={handleStagePointerDown}
-      className="overflow-hidden rounded-xl border border-gray-300"
-    >
-      <Layer>
-        <Rect
-          name="canvas-background"
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill="#ffffff"
-        />
 
-        {items.map((item) => (
-          <CanvasClothingItem
-            key={item.id}
-            item={item}
-            isSelected={item.id === selectedId}
-            stageWidth={width}
-            stageHeight={height}
-            onSelect={() => onSelectItem(item.id)}
-            onChange={updateItem}
+  return (
+    <div>
+      <Stage
+        ref={stageRef} //for downloading canvas as image
+        width={width}
+        height={height}
+        onMouseDown={handleStagePointerDown}
+        onTouchStart={handleStagePointerDown}
+        className="overflow-hidden rounded-xl border border-gray-300"
+      >
+        <Layer>
+          <Rect
+            name="canvas-background"
+            x={0}
+            y={0}
+            width={width}
+            height={height}
+            fill="#ffffff"
           />
-        ))}
-      </Layer>
-    </Stage>
+
+          {items.map((item) => (
+            <CanvasClothingItem
+              key={item.id}
+              item={item}
+              isSelected={item.id === selectedId}
+              stageWidth={width}
+              stageHeight={height}
+              onSelect={() => onSelectItem(item.id)}
+              onChange={updateItem}
+            />
+          ))}
+        </Layer>
+      </Stage>
+    </div>
   );
 }
