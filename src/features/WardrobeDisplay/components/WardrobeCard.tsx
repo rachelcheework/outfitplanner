@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import type { ClothingCategory } from "../../../constants/Categories";
-import { BUCKET_NAME, CLOTHES_TABLE } from "../../../constants/TableNames";
+import { WARDROBE_BUCKET, CLOTHES_TABLE } from "../../../constants/TableNames";
 import EditWardrobeItemModal from "./EditWardrobeItemModal";
 import { useReducer } from "react";
 import wardrobeReducer, { initialEditingState } from "../reducer/wardrobeReducer";
@@ -132,7 +132,7 @@ export default function WardrobeCard({
       //delete from bucket 
       if (editItemImagePath) {
         const { error: storageError } = await supabase.storage
-          .from(BUCKET_NAME)
+          .from(WARDROBE_BUCKET)
           .remove([editItemImagePath]);
 
         if (storageError) {

@@ -1,7 +1,7 @@
 //this is for fetching data from clothes_table
 
 import supabase from "../supabase-client";
-import { BUCKET_NAME, CLOTHES_TABLE } from "../constants/TableNames";
+import { WARDROBE_BUCKET, CLOTHES_TABLE } from "../constants/TableNames";
 import type { ClothingCategory } from "../constants/Categories";
 
 //for clothes_table
@@ -54,7 +54,7 @@ export default async function fetchClothesByCategory(category: ClothingCategory)
     data.map(async (item) => {
       const { data: signedUrlData, error: signedUrlError } =
         await supabase.storage
-          .from(BUCKET_NAME)
+          .from(WARDROBE_BUCKET)
           .createSignedUrl(item.image_path, 60 * 60);
 
       if (signedUrlError) {

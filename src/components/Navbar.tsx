@@ -3,6 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const location = useLocation();
 
+  function logout() {
+    alert('logging out')
+  }
+
   const linkClass = (path: string) => {
     const isActive = location.pathname.startsWith(path);
 
@@ -33,6 +37,8 @@ const Navbar = () => {
         <Link to="/collection" className={linkClass("/collection")}>
           Collection
         </Link>
+
+        <button onClick={logout}>Logout</button>
       </div>
     </nav>
   );

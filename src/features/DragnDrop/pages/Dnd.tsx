@@ -1,5 +1,5 @@
 import supabase from '../../../supabase-client';
-import { BUCKET_NAME, CLOTHES_TABLE } from "../../../constants/TableNames";
+import { WARDROBE_BUCKET, CLOTHES_TABLE } from "../../../constants/TableNames";
 import { useCallback, useReducer } from "react";
 import { useDropzone, type FileRejection } from "react-dropzone";
 import { removeBackground } from "@imgly/background-removal";
@@ -134,7 +134,7 @@ const Dnd = () => {
 
             //upload image to Supabase bucket
             const { error: uploadError } = await supabase.storage
-                .from(BUCKET_NAME)
+                .from(WARDROBE_BUCKET)
                 .upload(filePath, stickerBlob, {
                     contentType: "image/png",
                     upsert: false,
