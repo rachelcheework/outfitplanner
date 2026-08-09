@@ -156,7 +156,7 @@ export default function WardrobeCard({
       await queryClient.invalidateQueries({
         queryKey: ["clothes", category],
       });
-      
+
       editDispatch({
         type: "DELETE_SUCCEEDED",
         payload: {
@@ -176,24 +176,19 @@ export default function WardrobeCard({
   };
 
   return (
-    <div
-      className="rounded-xl border border-slate-200 p-4"
-    >
+    <div>
       <button
+        className={`rounded-xl border border-slate-200 p-4 transition-transform duration-200 cursor-pointer ${isEditModalOpen ? "scale-100" : "hover:scale-105"
+          }`}
         onClick={() => openEditModal({ id, itemName, category, image_path, stickerUrl })}
       >
 
-        {stickerUrl ? (
-          <img
-            src={stickerUrl}
-            alt={itemName}
-            className="h-48 w-full rounded-lg object-contain"
-          />
-        ) : (
-          <div className="flex h-48 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
-            No image
-          </div>
-        )}
+        <img
+          src={stickerUrl!}
+          alt={itemName}
+          className="h-48 w-full rounded-lg object-contain"
+        />
+
 
         <p className="mt-3 font-medium text-slate-800">{itemName}</p>
 
