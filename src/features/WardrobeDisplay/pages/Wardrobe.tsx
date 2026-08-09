@@ -35,23 +35,21 @@ export default function WardrobeDisplay() {
  
   return (
     <div>
-      {/* <p className="mb-4 text-slate-600">
-        Showing all items in {category}
-      </p> */}
-
-      {items && (
+      {items.length > 0 ? (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {items.map((item) => (
-            <WardrobeCard 
-            key={Number(item.id)} 
-            id={Number(item.id)} 
-            itemName={item.item_name} 
-            category={item.category} 
-            image_path={item.image_path}
-            stickerUrl = {item.imageUrl}
+            <WardrobeCard
+              key={Number(item.id)}
+              id={Number(item.id)}
+              itemName={item.item_name}
+              category={item.category}
+              image_path={item.image_path}
+              stickerUrl={item.imageUrl}
             />
           ))}
         </div>
+      ) : (
+        <p>No items in {category}</p>
       )}
     </div>
   );
