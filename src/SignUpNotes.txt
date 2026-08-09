@@ -1,0 +1,32 @@
+to automatically insert a row in my users table every time a new user signs up, 
+
+1. run this sql command in supabase > users table first
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  insert into public.users (
+    user_id,
+    "firstName",
+    "lastName",
+    email
+  )
+  values (
+    new.id,
+    new.raw_user_meta_data ->> 'first_name',
+    new.raw_user_meta_data ->> 'last_name',
+    new.email
+  );
+
+  return new;
+end;
+$$;
+
+2. then create the trigger by running this command
+create trigger on_auth_user_created
+after insert on auth.users
+for each row
+execute function public.handle_new_user();

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router';
+// import { USERS_TABLE } from './constants/TableNames';
 import supabase from './supabase-client';
 
 const SignUp = () => {
@@ -16,7 +17,13 @@ const SignUp = () => {
 
         const { data, error } = await supabase.auth.signUp({
             email: email,
-            password: password
+            password: password,
+            options: {
+                data: {
+                  first_name: firstName,
+                  last_name: lastName,
+                },
+              },
         });
 
         if (error) {
@@ -24,35 +31,36 @@ const SignUp = () => {
             return;
         } 
 
-        const user = data.user;
+        // const user = data.user;
 
-        if (!user) {
-            console.error('Signup succeeded, but no user was returned.')
-            return
-        }
+        // if (!user) {
+        //     console.error('Signup succeeded, but no user was returned.')
+        //     return
+        // }
 
-        //adding user to users table
-        const { error: insertError } = await supabase
-            .from('Users')
-            .insert([
-                {
-                    user_id: user.id,
-                    firstName,
-                    lastName,
-                    email
-                }
-            ])
+        // //adding user to users table
+        // const { error: insertError } = await supabase
+        //     .from(USERS_TABLE)
+        //     .insert([
+        //         {
+        //             user_id: user.id,
+        //             firstName,
+        //             lastName,
+        //             email
+        //         }
+        //     ])
 
-        if (insertError) {
-            console.error('Account created, but failed to save user details: ' + insertError.message)
-            return
-        }
+        // if (insertError) {
+        //     console.error('Account created, but failed to save user details: ' + insertError.message)
+        //     return
+        // }
 
         setMessage('User account created!')
         setFirstName('')
         setLastName('')
         setEmail('')
         setPassword('')
+        setErrorMessage("")
     }
 
     return (
