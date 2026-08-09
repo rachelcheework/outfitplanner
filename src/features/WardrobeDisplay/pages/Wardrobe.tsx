@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import fetchClothesByCategory from "../../../api/clothes";
+import { useAuth } from "../../../context/AuthContext";
+import fetchClothesByCategory from "../../../api/fetchClothesByCategory";
 import WardrobeCard from "../components/WardrobeCard";
 import type { ClothingCategory } from "../../../constants/Categories";
 
 
 export default function WardrobeDisplay() {
+  const {user} = useAuth();
   const { category } = useParams<{ category: ClothingCategory }>();
 
   //fetch data from clothes_table using tan stack query depending on category
@@ -15,9 +17,9 @@ export default function WardrobeDisplay() {
     isError,
     error,
   } = useQuery({
-    queryKey: ["clothes", category],
-    queryFn: () => fetchClothesByCategory(category!),
-    enabled: Boolean(category) //query is only enabled if category exists
+    queryKey: ["clothes", user?.id, category],
+    queryFn: () => fetchClothesByCategory(user!.id, category!),
+    enabled: !!user && !!category, //query is only enabled if user and category exists
   });
 
   if (isLoading) {

@@ -1,10 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { signOut } = useAuth();
   const location = useLocation();
 
-  function logout() {
-    alert('logging out')
+
+  function handleLogout() {
+    signOut();
   }
 
   const linkClass = (path: string) => {
@@ -38,7 +41,7 @@ const Navbar = () => {
           Collection
         </Link>
 
-        <button onClick={logout}>Logout</button>
+        <button onClick={handleLogout} className="px-4 py-2  border-0 rounded-lg hover:bg-red-400 hover:text-white">Logout</button>
       </div>
     </nav>
   );

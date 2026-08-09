@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { useAuth } from "../../../context/AuthContext";
+import { OUTFITS_TABLE, OUTFIT_BUCKET } from "../../../constants/TableNames";
 import type Konva from "konva";
 import supabase from "../../../supabase-client";
 import type { ClothingItem } from "../../WardrobeDisplay/components/WardrobeCard";
@@ -7,9 +9,11 @@ import type { CanvasItem } from "../types/CanvasItem";
 
 import { clothingCategories, type ClothingCategory } from "../../../constants/Categories";
 import { useQuery } from "@tanstack/react-query";
-import fetchClothesByCategory from "../../../api/clothes";
+import fetchClothesByCategory from "../../../api/fetchClothesByCategory";
 
 export default function OutfitPage() {
+
+    const {user} = useAuth();
 
     const categories = clothingCategories;
     const [outfitCategory, setOutfitCategory] = useState<ClothingCategory>("tops");
@@ -45,19 +49,7 @@ export default function OutfitPage() {
         setSaveSuccess(null);
 
         try {
-            const {
-                data: { user },
-                error: userError,
-            } = await supabase.auth.getUser();
-
-            if (userError) {
-                throw userError;
-            }
-
-            if (!user) {
-                throw new Error("You must be logged in to save an outfit.");
-            }
-
+          
             /*
              * Remove the Transformer/selection border before exporting.
              */
@@ -79,13 +71,13 @@ export default function OutfitPage() {
             }
 
             const fileName = `${crypto.randomUUID()}.png`;
-            const outfitImagePath = `${user.id}/${fileName}`;
+            const outfitImagePath = `${user?.id}/${fileName}`;
 
             /*
              * First, upload the actual PNG to Storage.
              */
             const { error: uploadError } = await supabase.storage
-                .from("outfits-collection")
+                .from(OUTFIT_BUCKET)
                 .upload(outfitImagePath, outfitImageBlob, {
                     contentType: "image/png",
                     cacheControl: "3600",
@@ -100,9 +92,9 @@ export default function OutfitPage() {
              * Then save its path and metadata in the database table.
              */
             const { error: insertError } = await supabase
-                .from("outfits_table")
+                .from(OUTFITS_TABLE)
                 .insert({
-                    user_id: user.id,
+                    user_id: user?.id,
                     outfit_image_path: outfitImagePath,
                 });
 
@@ -112,7 +104,7 @@ export default function OutfitPage() {
                  * Remove the uploaded image to avoid an orphaned file.
                  */
                 await supabase.storage
-                    .from("outfits")
+                    .from(OUTFIT_BUCKET)
                     .remove([outfitImagePath]);
 
                 throw insertError;
@@ -136,9 +128,9 @@ export default function OutfitPage() {
         isError,
         error,
     } = useQuery({
-        queryKey: ["clothes", outfitCategory],
-        queryFn: () => fetchClothesByCategory(outfitCategory!),
-        enabled: Boolean(outfitCategory) //query is only enabled if outfitCategory exists
+        queryKey: ["clothes", user?.id, outfitCategory],
+        queryFn: () => fetchClothesByCategory(user!.id, outfitCategory!),
+        enabled: !!user && !!outfitCategory //query is only enabled if user and outfitCategory exists
     });
 
     const [canvasItems, setCanvasItems] = useState<CanvasItem[]>([]);
@@ -304,7 +296,6 @@ export default function OutfitPage() {
         };
     }, [selectedId]);
 
-    //for some reason isLoading and isError must be placed at the bottom because of a render hooks issue
     if (isLoading) {
         return <p className="text-slate-600">Loading items...</p>;
     }
@@ -374,23 +365,7 @@ export default function OutfitPage() {
                 stageRef={stageRef}
             />
             <aside className="w-1/4 flex flex-col justify-center gap-2">
-                {/* <button
-                    type="button"
-                    onClick={() =>
-                        addClothingItem(
-                            {
-                                id: 1,
-                                itemName: "White shirt",
-                                category: "tops",
-                                image_path: "/images/test.jpg",
-                                stickerUrl: null
-                            })
-                    }
-                >
-                    Add clothing item
-                </button> */}
-
-                <button
+                  <button
                     type="button"
                     disabled={!selectedId}
                     onClick={bringToFront}

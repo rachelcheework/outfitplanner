@@ -1,3 +1,4 @@
+import { useAuth } from "../../../context/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
 import type { ClothingCategory } from "../../../constants/Categories";
 import { WARDROBE_BUCKET, CLOTHES_TABLE } from "../../../constants/TableNames";
@@ -22,6 +23,8 @@ export default function WardrobeCard({
   image_path,
   stickerUrl
 }: ClothingItem) {
+
+  const {user, userError} = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -75,12 +78,6 @@ export default function WardrobeCard({
         editDispatch({ type: "EDIT_SAVE_FAILED", payload: { message: "Please enter an item name." } })
         return;
       }
-
-      //get logged-in user
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
 
       //not sure if i need this but it keeps flagging an error if i dont include
       if (userError || !user) {

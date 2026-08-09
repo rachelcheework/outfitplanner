@@ -1,5 +1,6 @@
 import supabase from '../../../supabase-client';
 import { WARDROBE_BUCKET, CLOTHES_TABLE } from "../../../constants/TableNames";
+import { useAuth } from '../../../context/AuthContext';
 import { useCallback, useReducer } from "react";
 import { useDropzone, type FileRejection } from "react-dropzone";
 import { removeBackground } from "@imgly/background-removal";
@@ -7,6 +8,9 @@ import ClothingDetailsPopup from "../components/ClothingDetailsPopup";
 import dndReducer, { initialUploadState } from "../reducers/dndReducer";
 
 const Dnd = () => {
+
+    const {user} = useAuth();
+
     //dndReducer
     const [dndState, dndDispatch] = useReducer(dndReducer, initialUploadState);
     const {
@@ -25,6 +29,7 @@ const Dnd = () => {
 
     //DROPZONE/UPLOAD ACCEPTANCE LOGIC
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
+
 
         const file = acceptedFiles[0]; //only takes in the first file 
         if (!file) return;
@@ -112,25 +117,12 @@ const Dnd = () => {
                 return;
             }
 
-            //get logged-in user
-            const {
-                data: { user },
-                error: userError,
-            } = await supabase.auth.getUser();
-
-            //not sure if i need this but it keeps flagging an error if i dont include
-            if (userError || !user) {
-                dndDispatch({ type: "SAVE_FAILED", payload: { message: "You must be logged in to save an item." } });
-                return;
-            }
-
-
             //create a unique file path for upload
             const fileExt = "png";
             const fileName = `${crypto.randomUUID()}.${fileExt}`;
 
             //example path: user-id/tops/random-file-name.png
-            const filePath = `${user.id}/${category}/${fileName}`;
+            const filePath = `${user?.id}/${category}/${fileName}`;
 
             //upload image to Supabase bucket
             const { error: uploadError } = await supabase.storage
@@ -150,7 +142,7 @@ const Dnd = () => {
             const { error: insertError } = await supabase
                 .from(CLOTHES_TABLE)
                 .insert({
-                    user_id: user.id,
+                    user_id: user?.id,
                     item_name: itemName.trim(),
                     category,
                     image_path: filePath,

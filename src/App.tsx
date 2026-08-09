@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavLayout from "./layouts/NavLayout";
 import WardrobeLayout from "./layouts/WardrobeLayout";
-import SignUp from "./features/SignUp";
-import Login from "./features/Login";
-import Wrapper from "./features/Wrapper";
+import SignUp from "./SignUp";
+import Login from "./Login";
+import Wrapper from "./Wrapper";
 import Wardrobe from "./features/WardrobeDisplay/pages/Wardrobe";
 import Dnd from "./features/DragnDrop/pages/Dnd";
 import OutfitPage from "./features/OutfitBuilder/pages/OutfitPage";
@@ -15,6 +15,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
+
         <Route element={<Wrapper />}>
           {/* Shared layout */}
           <Route element={<NavLayout />}>

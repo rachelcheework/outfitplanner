@@ -1,9 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import fetchOutfits from "../helper/fetchOutfits";
+import { useAuth } from "../../../context/AuthContext";
+import { OUTFIT_BUCKET, OUTFITS_TABLE } from "../../../constants/TableNames";
+import fetchOutfits from "../api/fetchOutfits";
 import CollectionCard from "../components/CollectionCard";
 import supabase from "../../../supabase-client";
 
 const CollectionPage = () => {
+  const {user} = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -11,7 +14,7 @@ const CollectionPage = () => {
     mutationFn: async (id: string) => {
       // First fetch the row so we know which storage file to delete
       const { data: outfit, error: fetchError } = await supabase
-        .from("outfits_table")
+        .from(OUTFITS_TABLE)
         .select("outfit_image_path")
         .eq("id", id)
         .single();
@@ -22,7 +25,7 @@ const CollectionPage = () => {
 
       // Delete the image from storage
       const { error: storageError } = await supabase.storage
-        .from("outfits-collection")
+        .from(OUTFIT_BUCKET)
         .remove([outfit.outfit_image_path]);
 
       if (storageError) {
@@ -31,7 +34,7 @@ const CollectionPage = () => {
 
       // Delete the database row
       const { error: deleteError } = await supabase
-        .from("outfits_table")
+        .from(OUTFITS_TABLE)
         .delete()
         .eq("id", id);
 
@@ -62,8 +65,9 @@ const CollectionPage = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["outfits"],
-    queryFn: fetchOutfits,
+    queryKey: ["outfits", user?.id],
+    queryFn: () => fetchOutfits(user!.id),
+    enabled: !!user,
   });
 
   if (isLoading) {

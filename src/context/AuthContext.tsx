@@ -1,51 +1,84 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import type { Session, User } from "@supabase/supabase-js";
 import supabase from "../supabase-client";
 
 interface AuthContextType {
-  user: any;
-  loading: boolean;
+  session: Session | null;
+  user: User | null;
+  userError: string | null;
+  isUserLoading: boolean;
+  signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+type AuthProviderProps = {
+  children: ReactNode;
+};
 
-  useEffect(() => { //runs only when component mounts
-    //get current session on mount
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      setUser(data.user);
-      setLoading(false);
-    };
+export function AuthProvider({ children }: AuthProviderProps) {
+  const [session, setSession] = useState<Session | null>(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
+  const [userError, setUserError] = useState<string | null>(null);
 
-    getUser();
+  useEffect(() => {
+    async function getInitialSession() {
+      const { data, error } = await supabase.auth.getSession();
 
-    //listen for login/logout
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null); 
+      if (error) {
+        setUserError(error.message);
+        setIsUserLoading(false);
+        return;
       }
-    );
+
+      setSession(data.session);
+      setIsUserLoading(false);
+    }
+
+    getInitialSession();
+    
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
 
     return () => {
-      listener.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
   }, []);
 
+  const user = session?.user ?? null;
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+  
+    if (error) {
+      setUserError(error.message);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider
+      value={{
+        session,
+        user,
+        userError,
+        isUserLoading,
+        signOut
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-// Custom hook; to allow child components to use the context
-export const useAuth = () => {
+export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used inside AuthProvider");
+
+  if (context === undefined) {
+    throw new Error("useAuth must be used inside an AuthProvider");
   }
+
   return context;
-};
+}

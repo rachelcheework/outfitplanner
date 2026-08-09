@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router';
-import supabase from '../supabase-client';
+import supabase from './supabase-client';
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('');

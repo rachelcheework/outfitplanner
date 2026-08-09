@@ -1,4 +1,5 @@
 import supabase from "../../../supabase-client";
+import { OUTFIT_BUCKET, OUTFITS_TABLE } from "../../../constants/TableNames";
 
 type OutfitItem = {
   id: string;
@@ -9,24 +10,12 @@ type OutfitItemWithUrl = OutfitItem & {
     outfitImageUrl: string | null;
 }
 
-export default async function fetchOutfits(): Promise<OutfitItemWithUrl[]> {
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-
-  if (userError) {
-    throw userError;
-  }
-
-  if (!user) {
-    throw new Error("You must be logged in.");
-  }
+export default async function fetchOutfits(userId: string): Promise<OutfitItemWithUrl[]> {
 
   const { data, error } = await supabase
-    .from("outfits_table")
+    .from(OUTFITS_TABLE)
     .select("id, outfit_image_path")
-    .eq("user_id", user.id)
+    .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -41,7 +30,7 @@ export default async function fetchOutfits(): Promise<OutfitItemWithUrl[]> {
     (data ?? []).map(async (outfit) => {
       const { data: signedUrlData, error: signedUrlError } =
         await supabase.storage
-          .from("outfits-collection")
+          .from(OUTFIT_BUCKET)
           .createSignedUrl(outfit.outfit_image_path, 60 * 60);
 
       return {
