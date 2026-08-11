@@ -27,7 +27,7 @@ const Navbar = () => {
     <nav className="w-full flex justify-between items-center fixed bottom-0 border-t md:static md:border-t-0 md:border-b bg-white md:px-6 md:py-3 ">
       <h1 className="hidden md:block font-bold text-lg">Wardrobe App</h1>
 
-      <div className="flex justify-between w-full md:w-auto  md:gap-2">
+      <div className="flex justify-between w-full md:w-auto md:gap-2">
         <Link to="/wardrobe" className={linkClass("/wardrobe")}>
           Wardrobe
         </Link>
