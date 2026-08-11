@@ -4,11 +4,18 @@ import { OUTFIT_BUCKET, OUTFITS_TABLE } from "../../../constants/TableNames";
 import fetchOutfits from "../api/fetchOutfits";
 import CollectionCard from "../components/CollectionCard";
 import supabase from "../../../supabase-client";
+import { useState } from "react";
+import { IoIosClose } from "react-icons/io";
 
 const CollectionPage = () => {
   const {user} = useAuth();
 
   const queryClient = useQueryClient();
+
+  const [selectedOutfit, setSelectedOutfit] = useState<{
+    id: string;
+    imgURL: string;
+  } | null>(null);
 
   const deleteOutfitMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -83,6 +90,22 @@ const CollectionPage = () => {
       </p>
     );
   }
+
+  async function saveImageToComputer(imgURL: string) {
+    const response = await fetch(imgURL);
+    const blob = await response.blob();
+  
+    const objectURL = URL.createObjectURL(blob);
+  
+    const link = document.createElement("a");
+  
+    link.href = objectURL;
+    link.download = "outfit.png";
+  
+    link.click();
+  
+    URL.revokeObjectURL(objectURL);
+  }
   return (
     <div>
       <main className="grid grid-cols-6 gap-2">
@@ -92,13 +115,96 @@ const CollectionPage = () => {
               <CollectionCard
                 key={outfit.id}
                 id={outfit.id}
-                onDelete={onDelete}
+                onClick={(id, imgURL) =>
+                  setSelectedOutfit({
+                    id,
+                    imgURL,
+                  })
+                }
                 imgURL={outfit.outfitImageUrl}
               />
             )}
           </article>
         ))}
       </main>
+
+      {selectedOutfit && (
+  <div
+    className="
+      fixed
+      inset-0
+      z-50
+      flex
+      items-center
+      justify-center
+      bg-black/50
+    "
+  >
+    <div
+      className="
+        relative
+        flex
+        max-h-[90vh]
+        max-w-[90vw]
+        flex-col
+        items-center
+        gap-4
+        rounded-xl
+        bg-white
+        p-6
+      "
+    >
+      <button
+        type="button"
+        onClick={() => setSelectedOutfit(null)}
+        className="
+          absolute
+          right-2
+          top-2
+          flex
+          h-8
+          w-8
+          items-center
+          justify-center
+          rounded-full
+          bg-white
+          shadow
+        "
+      >
+        <IoIosClose size={24} />
+      </button>
+
+      <img
+        src={selectedOutfit.imgURL}
+        alt="Selected outfit"
+        className="max-h-[70vh] max-w-[70vw] object-contain"
+      />
+
+      <div className="flex gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            onDelete(selectedOutfit.id);
+            setSelectedOutfit(null);
+          }}
+          className="rounded bg-red-500 px-4 py-2 text-white"
+        >
+          Delete
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            saveImageToComputer(selectedOutfit.imgURL)
+          }
+          className="rounded bg-blue-500 px-4 py-2 text-white"
+        >
+          Save to computer
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   )
 }
