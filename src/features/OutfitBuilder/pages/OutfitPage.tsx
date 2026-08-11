@@ -141,13 +141,23 @@ export default function OutfitPage() {
             return;
         }
 
+        const image = new window.Image();
+
+        image.onload = () => {
+          const maxSize = 150;
+      
+          const scale = Math.min(
+            maxSize / image.width,
+            maxSize / image.height
+          );
+      
         const newCanvasItem: CanvasItem = {
             id: crypto.randomUUID(),
             imageUrl: item.image_path,
-            x: 300,
-            y: 400,
-            width: 150,
-            height: 150,
+            x: 250,
+            y: 200,
+            width: image.width * scale,
+            height: image.height * scale,
             rotation: 0,
         };
 
@@ -157,6 +167,9 @@ export default function OutfitPage() {
         ]);
 
         setSelectedId(newCanvasItem.id);
+    };
+
+        image.src = item.image_path;
     }
 
     function deleteSelectedItem() {

@@ -110,7 +110,7 @@ export default function CanvasClothingItem({
           rotateEnabled
           resizeEnabled
           flipEnabled={true}
-          keepRatio
+          keepRatio={false}
           enabledAnchors={[
             "top-left",
             "top-right",

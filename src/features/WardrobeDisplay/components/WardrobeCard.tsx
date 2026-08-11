@@ -99,9 +99,9 @@ export default function WardrobeCard({
         editDispatch({ type: "EDIT_SAVE_FAILED", payload: { message: "Failed to update successfully." } })
       }
 
-      //invalidate query so tanstack query will auto refetch and update data
+      //invalidate query so tanstack query will auto refetch and update data, dont include category here
       await queryClient.invalidateQueries({
-        queryKey: ["clothes", category],
+        queryKey: ["clothes"],
       });
 
       editDispatch({ type: "EDIT_SAVE_SUCCEEDED", payload: { message: "Image details updated successfully!" } });
