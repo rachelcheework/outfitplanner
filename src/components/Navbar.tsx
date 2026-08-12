@@ -24,7 +24,7 @@ const Navbar = () => {
    ;
 
   return (
-    <nav className="flex h-10 justify-between items-center fixed bottom-0 left-0 right-0 z-50 border-t bg-white md:static md:border-t-0 md:border-b md:px-6 md:py-3 ">
+    <nav className="flex h-10 justify-between items-center fixed bottom-0 left-0 right-0 z-50 border-t bg-white md:sticky md:top-0 md:border-t-0 md:border-b md:px-6 md:py-3 ">
       <h1 className="hidden md:block font-bold text-lg">Wardrobe App</h1>
 
       <div className="flex justify-between w-full md:w-auto md:gap-2">

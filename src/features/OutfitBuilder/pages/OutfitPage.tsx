@@ -328,10 +328,10 @@ export default function OutfitPage() {
     }
     return (
         <main className="relative flex flex-col gap-6 min-h-[calc(100vh-4rem)] justify-center md:grid md:grid-cols-4 md:h-full md:min-h-0 lg:gap-0
-        bg-amber-700">
+        ">
 
             {/* desktop wardrobe */}
-            <div className="hidden md:flex md:space-x-3 md:col-span-1 md:min-h-0 bg-blue-500">
+            <div className="hidden md:flex md:space-x-3 md:col-span-1 md:min-h-0">
                 {/* category side menu */}
                 <div className="w-32 bg-white z-50 flex flex-col gap-2">
                     {categories.map((item) => (
@@ -354,11 +354,11 @@ export default function OutfitPage() {
                 {/* clothing items */}
                 <div className="flex flex-1 h-full">
                     {items.length === 0 ? (
-                        <div className="p-3 justify-center text-sm text-gray-500 bg-red-200">
+                        <div className="p-3 justify-center text-sm text-gray-500">
                             No clothing in this category yet
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 2xl:grid-cols-2 bg-indigo-400 gap-3 overflow-y-auto">
+                        <div className="grid grid-cols-2 2xl:grid-cols-2 gap-3 overflow-y-auto">
                             {items &&
                                 items.map((item) => (
                                     <button
@@ -399,7 +399,7 @@ export default function OutfitPage() {
                 </div>
             </div>
 
-            <aside className="flex space-y-3 justify-center flex-col md:w-fit md:col-span-1 bg-red-500">
+            <aside className="flex space-y-3 justify-center flex-col md:w-fit md:col-span-1">
 
                 <div className="flex w-full justify-center md:flex-col md:space-y-1 ">
                     <button
