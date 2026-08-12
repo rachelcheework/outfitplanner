@@ -12,7 +12,7 @@ const WardrobeLayout = () => {
   const navToggle = () => setIsOpen(!isOpen);
 
   return (
-    <div className="flex h-full min-h-0 bg-blue-500">
+    <div className="flex h-full min-h-0">
 
       {/* clothing category menu on md */}
       <aside className="hidden h-full shrink-0 md:block w-56 border-r bg-red-200 p-4">

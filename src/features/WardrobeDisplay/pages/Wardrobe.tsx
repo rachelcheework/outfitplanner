@@ -36,7 +36,7 @@ export default function WardrobeDisplay() {
 
  
   return (
-    <div className="flex w-full bg-amber-800 p-3 flex-col">
+    <div className="flex w-full p-3 flex-col">
       {items.length > 0 ? (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {items.map((item) => (
