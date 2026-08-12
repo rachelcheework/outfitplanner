@@ -15,7 +15,7 @@ const WardrobeLayout = () => {
     <div className="flex h-full min-h-0">
 
       {/* clothing category menu on md */}
-      <aside className="hidden h-full shrink-0 md:block w-56 border-r bg-red-200 p-4">
+      <aside className="hidden h-full shrink-0 md:block w-56 border-r p-4">
         <h2 className="mb-4 text-lg font-semibold">Categories</h2>
         <div className="flex flex-col space-y-2">
           {categories.map((item) => (
