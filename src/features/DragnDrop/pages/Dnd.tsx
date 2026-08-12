@@ -165,7 +165,7 @@ const Dnd = () => {
     };
 
     return (
-        <div className="flex flex-col items-center gap-6 p-8">
+        <div className="flex flex-col items-center gap-6 p-8 min-h-[calc(100vh-4rem)] justify-center md:min-h-0">
 
             {/* Dropzone */}
             {!isRemovingBackground && stickerUrl === null && (<div

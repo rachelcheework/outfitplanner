@@ -16,8 +16,8 @@ const CollectionCard = ({
       className="
         group
         relative
-        h-50
-        w-50
+        aspect-square
+        w-full
         overflow-hidden
         rounded-xl
         border

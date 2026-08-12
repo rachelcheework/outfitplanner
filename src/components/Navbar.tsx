@@ -14,7 +14,7 @@ const Navbar = () => {
     const isActive = location.pathname.startsWith(path);
 
     return (
-    `px-4 py-2 rounded ${
+    `px-2 py-2 md: px-4 rounded ${
       isActive
         ? "bg-blue-500 text-white"
         : "text-gray-600 hover:bg-gray-100"
@@ -24,7 +24,7 @@ const Navbar = () => {
    ;
 
   return (
-    <nav className="w-full flex justify-between items-center fixed bottom-0 border-t md:static md:border-t-0 md:border-b bg-white md:px-6 md:py-3 ">
+    <nav className="flex h-10 justify-between items-center fixed bottom-0 left-0 right-0 z-50 border-t bg-white md:static md:border-t-0 md:border-b md:px-6 md:py-3 ">
       <h1 className="hidden md:block font-bold text-lg">Wardrobe App</h1>
 
       <div className="flex justify-between w-full md:w-auto md:gap-2">
@@ -41,7 +41,7 @@ const Navbar = () => {
           Collection
         </Link>
 
-        <button onClick={handleLogout} className="px-4 py-2  border-0 rounded-lg hover:bg-red-400 hover:text-white">Logout</button>
+        <button onClick={handleLogout} className="px-2 md:px-4 py-2 border-0 rounded-lg hover:bg-red-400 hover:text-white">Logout</button>
       </div>
     </nav>
   );

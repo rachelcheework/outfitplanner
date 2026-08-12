@@ -12,10 +12,10 @@ const WardrobeLayout = () => {
   const navToggle = () => setIsOpen(!isOpen);
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)]">
+    <div className="flex h-full min-h-0 bg-blue-500">
 
       {/* clothing category menu on md */}
-      <aside className="hidden md:block w-56 border-r bg-white p-4">
+      <aside className="hidden h-full shrink-0 md:block w-56 border-r bg-red-200 p-4">
         <h2 className="mb-4 text-lg font-semibold">Categories</h2>
         <div className="flex flex-col space-y-2">
           {categories.map((item) => (
@@ -36,15 +36,15 @@ const WardrobeLayout = () => {
       </aside>
 
       {/* burger */}
-      <Hamburger navToggle={navToggle} isOpen={isOpen} setIsOpen={setIsOpen} categories={categories}/>
+      <Hamburger navToggle={navToggle} isOpen={isOpen} setIsOpen={setIsOpen} categories={categories} />
 
       {/* sticker display */}
-      <main className="mt-12 p-6">
+      <main className="flex min-h-0 min-w-0 flex-1 flex-col mt-12 md:mt-0 p-6 ">
         <h1 className="text-2xl font-bold capitalize">
           {category}
         </h1>
 
-        <div className="mt-6">
+        <div className="min-h-0 flex-1 mt-6 overflow-y-auto">
           <Outlet />
         </div>
       </main>

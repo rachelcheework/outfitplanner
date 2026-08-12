@@ -8,7 +8,7 @@ import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 
 const CollectionPage = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -94,21 +94,21 @@ const CollectionPage = () => {
   async function saveImageToComputer(imgURL: string) {
     const response = await fetch(imgURL);
     const blob = await response.blob();
-  
+
     const objectURL = URL.createObjectURL(blob);
-  
+
     const link = document.createElement("a");
-  
+
     link.href = objectURL;
     link.download = "outfit.png";
-  
+
     link.click();
-  
+
     URL.revokeObjectURL(objectURL);
   }
   return (
-    <div>
-      <main className="grid grid-cols-6 gap-2">
+    <div className="pb-20 md:p-6">
+      <main className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {outfits.map((outfit) => (
           <article key={outfit.id}>
             {outfit.outfitImageUrl && (
@@ -129,8 +129,8 @@ const CollectionPage = () => {
       </main>
 
       {selectedOutfit && (
-  <div
-    className="
+        <div
+          className="
       fixed
       inset-0
       z-50
@@ -139,9 +139,9 @@ const CollectionPage = () => {
       justify-center
       bg-black/50
     "
-  >
-    <div
-      className="
+        >
+          <div
+            className="
         relative
         flex
         max-h-[90vh]
@@ -153,11 +153,11 @@ const CollectionPage = () => {
         bg-white
         p-6
       "
-    >
-      <button
-        type="button"
-        onClick={() => setSelectedOutfit(null)}
-        className="
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedOutfit(null)}
+              className="
           absolute
           right-2
           top-2
@@ -167,44 +167,45 @@ const CollectionPage = () => {
           items-center
           justify-center
           rounded-full
-          bg-white
+          bg-gray-300
+          opacity-50
           shadow
         "
-      >
-        <IoIosClose size={24} />
-      </button>
+            >
+              <IoIosClose size={24} />
+            </button>
 
-      <img
-        src={selectedOutfit.imgURL}
-        alt="Selected outfit"
-        className="max-h-[70vh] max-w-[70vw] object-contain"
-      />
+            <img
+              src={selectedOutfit.imgURL}
+              alt="Selected outfit"
+              className="max-h-[70vh] max-w-[70vw] object-contain"
+            />
 
-      <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={() => {
-            onDelete(selectedOutfit.id);
-            setSelectedOutfit(null);
-          }}
-          className="rounded bg-red-500 px-4 py-2 text-white"
-        >
-          Delete
-        </button>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  onDelete(selectedOutfit.id);
+                  setSelectedOutfit(null);
+                }}
+                className="rounded bg-red-500 px-4 py-2 text-white"
+              >
+                Delete
+              </button>
 
-        <button
-          type="button"
-          onClick={() =>
-            saveImageToComputer(selectedOutfit.imgURL)
-          }
-          className="rounded bg-blue-500 px-4 py-2 text-white"
-        >
-          Save to computer
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+              <button
+                type="button"
+                onClick={() =>
+                  saveImageToComputer(selectedOutfit.imgURL)
+                }
+                className="rounded bg-blue-500 px-4 py-2 text-white"
+              >
+                Save to computer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

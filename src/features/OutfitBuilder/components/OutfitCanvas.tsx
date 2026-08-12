@@ -1,4 +1,10 @@
-import type { RefObject } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  type RefObject,
+} from "react";
+
 import { Layer, Rect, Stage } from "react-konva";
 import type Konva from "konva";
 
@@ -8,8 +14,6 @@ import type { CanvasItem } from "../types/CanvasItem";
 type OutfitCanvasProps = {
   items: CanvasItem[];
   selectedId: string | null;
-  width: number;
-  height: number;
   onSelectItem: (id: string | null) => void;
   onChangeItems: React.Dispatch<
     React.SetStateAction<CanvasItem[]>
@@ -20,12 +24,28 @@ type OutfitCanvasProps = {
 export default function OutfitCanvas({
   items,
   selectedId,
-  width,
-  height,
   onSelectItem,
   onChangeItems,
   stageRef,
 }: OutfitCanvasProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [canvasSize, setCanvasSize] = useState(0);
+
+  useEffect(() => {
+    const container = containerRef.current;
+
+    if (!container) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      setCanvasSize(container.clientWidth);
+    });
+
+    resizeObserver.observe(container);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   function updateItem(updatedItem: CanvasItem) {
     onChangeItems(
@@ -40,10 +60,6 @@ export default function OutfitCanvas({
   ) {
     const stage = event.target.getStage();
 
-    /*
-     * If the Stage itself or its background was clicked,
-     * deselect the current clothing item.
-     */
     if (
       event.target === stage ||
       event.target.name() === "canvas-background"
@@ -52,13 +68,15 @@ export default function OutfitCanvas({
     }
   }
 
-
   return (
-    <div>
+    <div
+      ref={containerRef}
+      className="aspect-square w-full"
+    >
       <Stage
-        ref={stageRef} //for downloading canvas as image
-        width={width}
-        height={height}
+        ref={stageRef}
+        width={canvasSize}
+        height={canvasSize}
         onMouseDown={handleStagePointerDown}
         onTouchStart={handleStagePointerDown}
         className="overflow-hidden rounded-xl border border-gray-300"
@@ -66,11 +84,9 @@ export default function OutfitCanvas({
         <Layer>
           <Rect
             name="canvas-background"
-            x={0}
-            y={0}
-            width={width}
-            height={height}
-            fill="#ffffff"
+            width={canvasSize}
+            height={canvasSize}
+            fill="white"
           />
 
           {items.map((item) => (
@@ -78,8 +94,8 @@ export default function OutfitCanvas({
               key={item.id}
               item={item}
               isSelected={item.id === selectedId}
-              stageWidth={width}
-              stageHeight={height}
+              stageWidth={canvasSize}
+              stageHeight={canvasSize}
               onSelect={() => onSelectItem(item.id)}
               onChange={updateItem}
             />
