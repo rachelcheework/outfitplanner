@@ -357,12 +357,12 @@ export default function OutfitPage() {
                             No clothing in this category yet
                         </div>
                     ) : (
-                        <div className="grid max-h-150 grid-cols-1 2xl:grid-cols-2 gap-3 overflow-y-auto">
+                        <div className="grid max-h-150 grid-cols-2 2xl:grid-cols-2 gap-3 overflow-y-auto">
                             {items &&
                                 items.map((item) => (
                                     <button
                                         key={Number(item.id)}
-                                        className="aspect-square w-full border border-gray-200 rounded-xl hover:border-2"
+                                        className="border border-gray-200 rounded-xl hover:border-2"
                                         onClick={() =>
                                             addClothingItem(
                                                 {
@@ -376,7 +376,7 @@ export default function OutfitPage() {
                                     >
                                         <img src={item.imageUrl!}
                                             alt={item.item_name}
-                                            className="h-full w-full object-contain"
+                                            className="object-contain"
                                         />
                                     </button>
                                 ))}

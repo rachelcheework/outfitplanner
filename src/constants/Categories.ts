@@ -6,6 +6,7 @@ export const clothingCategories = [
     "activewear",
     "beachwear",
     "accessories",
+    "shoes"
   ] as const;
   
   export type ClothingCategory = (typeof clothingCategories)[number];
