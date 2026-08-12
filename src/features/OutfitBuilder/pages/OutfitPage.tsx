@@ -327,7 +327,7 @@ export default function OutfitPage() {
         );
     }
     return (
-        <main className="relative flex flex-col gap-6 min-h-[calc(100vh-4rem)] justify-center md:grid md:grid-cols-4 md:min-h-0">
+        <main className="relative flex flex-col gap-3 min-h-[calc(100vh-4rem)] justify-center md:grid md:grid-cols-4 md:min-h-0">
 
             {/* desktop wardrobe */}
             <div className="hidden space-x-6 md:flex md:col-span-1">

@@ -39,7 +39,7 @@ const WardrobeLayout = () => {
       <Hamburger navToggle={navToggle} isOpen={isOpen} setIsOpen={setIsOpen} categories={categories} />
 
       {/* sticker display */}
-      <main className="flex min-h-0 min-w-0 flex-1 flex-col mt-12 md:mt-0 p-6 ">
+      <main className="flex min-h-0 min-w-0 flex-1 p-3 flex-col mt-12 md:mt-0 md:p-6 ">
         <h1 className="text-2xl font-bold capitalize">
           {category}
         </h1>
