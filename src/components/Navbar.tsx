@@ -106,8 +106,21 @@ const Navbar = () => {
         md:hidden
       "
             >
-              <button>Forgot password</button>
-              <button>Logout</button>
+            <Link
+              to="/forgot-password"
+              onClick={() => setIsProfileMenuOpen(false)}
+              className="rounded px-3 py-2 text-left hover:bg-gray-100"
+            >
+              Change password
+            </Link>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded px-3 py-2 text-left hover:bg-gray-100"
+            >
+              Logout
+            </button>
             </div>
           )}
 
@@ -134,7 +147,7 @@ const Navbar = () => {
               onClick={() => setIsProfileMenuOpen(false)}
               className="rounded px-3 py-2 text-left hover:bg-gray-100"
             >
-              Forgot password
+              Change password
             </Link>
 
             <button
