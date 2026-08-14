@@ -2,6 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState, useRef, useEffect } from "react";
 
+import { IoPerson } from "react-icons/io5";
+
 const Navbar = () => {
   const { signOut } = useAuth();
   const location = useLocation();
@@ -45,19 +47,20 @@ const Navbar = () => {
     const isActive = location.pathname.startsWith(path);
 
     return (
-      `px-2 py-2 md: px-4 rounded-full ${isActive
+      `px-2 py-2 px-4 rounded md:rounded-full ${isActive
         ? "bg-blue-500 text-white"
-        : "text-gray-600 hover:bg-gray-100"
+        : "text-gray-600 hover:bg-white"
       }`
     )
   }
     ;
 
   return (
-    <nav className="flex h-14 justify-between items-center fixed bottom-0 left-0 right-0 z-50 border-t bg-white md:sticky md:top-0 md:border-t-0 md:drop-shadow-gray-300 md:drop-shadow-md md:px-6 md:py-3 ">
-      <h1 className="hidden md:block font-bold text-lg">Wardrobe App</h1>
+    <nav className="flex h-14 justify-between items-center fixed bottom-0 w-full z-50 border-t bg-white 
+    md:sticky md:top-0 md:border-t-0 md:w-fit md:px-6 md:py-3 md:mt-3 md:space-x-12 md:rounded-full md:justify-center md:bg-gray-100 ">
+      <h1 className="hidden md:block font-bold text-xl">Wardrobe App</h1>
 
-      <div className="flex justify-between w-full md:w-auto md:gap-2">
+      <div className="flex justify-between md:text-sm w-full md:w-auto md:gap-2">
         <Link to="/wardrobe" className={linkClass("/wardrobe")}>
           Wardrobe
         </Link>
@@ -74,7 +77,7 @@ const Navbar = () => {
         <div ref={profileMenuRef} className="group relative">
           <button
             type="button"
-            className={`px-2 md:px-4 py-2 border-0 rounded-lg
+            className={` p-2 border-0 rounded-full
       md:group-hover:bg-blue-500
       md:group-hover:text-white
        ${isProfileMenuOpen
@@ -83,7 +86,7 @@ const Navbar = () => {
               }`}
             onClick={handleProfileClick}
           >
-            Profile
+            <IoPerson size={20}/>
           </button>
 
           {/* MOBILE: click */}

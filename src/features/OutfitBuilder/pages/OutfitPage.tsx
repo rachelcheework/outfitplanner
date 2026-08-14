@@ -333,14 +333,14 @@ export default function OutfitPage() {
             {/* desktop wardrobe */}
             <div className="hidden md:flex md:space-x-3 md:col-span-1 md:min-h-0">
                 {/* category side menu */}
-                <div className="w-32 bg-white z-50 flex flex-col gap-2">
+                <div className="w-fit h-fit bg-gray-100 rounded-xl p-3 z-50 flex flex-col gap-2">
                     {categories.map((item) => (
                         <button
                             key={item}
                             className=
                             {`rounded-lg px-4 py-2 text-left capitalize transition ${outfitCategory === item
                                 ? "bg-blue-500 text-white"
-                                : "text-slate-700 hover:bg-slate-100"
+                                : "text-slate-700 hover:bg-white"
                                 }
                             `}
                             onClick={() => setOutfitCategory(item)}
@@ -363,7 +363,7 @@ export default function OutfitPage() {
                                 items.map((item) => (
                                     <button
                                         key={Number(item.id)}
-                                        className="border border-gray-200 rounded-xl hover:border-2"
+                                        className="border h-32 border-gray-200 rounded-xl hover:border-2"
                                         onClick={() =>
                                             addClothingItem(
                                                 {
@@ -406,7 +406,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={moveForwardOneLayer}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-200"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
                     >
                         <RiBringForward size={24} />
                         <span className="hidden md:inline">
@@ -417,7 +417,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={bringToFront}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-200"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
                     >
                         <RiBringToFront size={24} />
                         <span className="hidden md:inline">
@@ -428,7 +428,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={moveBackwardOneLayer}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-200"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
                     >
                         <RiSendBackward size={24} />
 
@@ -440,7 +440,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={sendToBack}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-200"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
                     >
                         <RiSendToBack size={24} />
 
@@ -452,7 +452,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={deleteSelectedItem}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-200"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
                     >
                         <RiDeleteBin6Fill size={24} />
                         <span className="hidden md:inline">
@@ -465,7 +465,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={isSaving || canvasItems.length === 0}
                         onClick={saveOutfit}
-                        className="flex justify-center rounded-xl items-center md:justify-start space-x-2 bg-blue-500 px-3 py-2 enabled:hover:bg-blue-900 text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+                        className="flex justify-center rounded-xl items-center md:justify-start space-x-2 bg-blue-500 px-3 py-2 enabled:hover:bg-blue-600 text-white disabled:cursor-not-allowed disabled:bg-gray-300"
                     >
                         <RiSave3Line />
                         <p>{isSaving ? "Saving..." : "Save outfit"} </p>
@@ -487,7 +487,7 @@ export default function OutfitPage() {
 
 
             {/* mobile wardrobe */}
-            <div className="fixed bottom-10 left-0 right-0 z-40 flex gap-2 border-t px-2 md:hidden">
+            <div className="fixed bottom-14 left-0 right-0 z-40 flex gap-2 border-t px-2 md:hidden">
 
                 {/* category selector */}
                 <div className="relative shrink-0">

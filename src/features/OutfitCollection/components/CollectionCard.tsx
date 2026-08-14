@@ -20,8 +20,8 @@ const CollectionCard = ({
         w-full
         overflow-hidden
         rounded-xl
-        border
-        border-gray-500
+        hover:drop-shadow-xl
+        hover:drop-shadow-gray-200
         transition-transform
         duration-200
         hover:scale-105

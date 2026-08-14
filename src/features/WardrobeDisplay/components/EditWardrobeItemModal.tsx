@@ -86,7 +86,7 @@ const EditWardrobeItemModal = ({
                         <p className="text-red-500">{editingModalError}</p>
                     )}
 
-                    <div className="flex justify-end gap-3">
+                    <div className="w-full flex justify-between">
                     <button
                             onClick={onDelete}
                             className="rounded-lg bg-red-300 px-4 py-2 text-white"
@@ -94,6 +94,7 @@ const EditWardrobeItemModal = ({
                         >
                             {isDeleting ? "Deleting..." : "Delete Item"}
                         </button>
+                        <div className="flex space-x-3">
 
                         <button
                             onClick={onClose}
@@ -104,11 +105,12 @@ const EditWardrobeItemModal = ({
 
                         <button
                             onClick={onSave}
-                            className="rounded-lg bg-black px-4 py-2 text-white"
+                            className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:outline-1 hover:outline-blue-500 hover:bg-white hover:text-blue-500"
                             disabled={isEditSaving}
                         >
                             {isEditSaving ? "Saving..." : "Save Item"}
                         </button>
+                        </div>
                     </div>
                 </div>
             </div>
