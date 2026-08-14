@@ -3,6 +3,8 @@ import NavLayout from "./layouts/NavLayout";
 import WardrobeLayout from "./layouts/WardrobeLayout";
 import SignUp from "./SignUp";
 import Login from "./Login";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 import Wrapper from "./Wrapper";
 import Wardrobe from "./features/WardrobeDisplay/pages/Wardrobe";
 import Dnd from "./features/DragnDrop/pages/Dnd";
@@ -15,6 +17,15 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+
+        <Route
+          path="/reset-password"
+          element={<ResetPassword />}
+        />
 
         <Route element={<Wrapper />}>
           {/* Shared layout */}
