@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const Navbar = () => {
   const { signOut } = useAuth();
@@ -11,7 +11,7 @@ const Navbar = () => {
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent | TouchEvent) {
+    function handleOutsideClick(event: PointerEvent) {
       if (
         profileMenuRef.current &&
         !profileMenuRef.current.contains(event.target as Node)
@@ -20,18 +20,26 @@ const Navbar = () => {
       }
     }
   
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener("pointerdown", handleOutsideClick);
   
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("pointerdown", handleOutsideClick);
     };
   }, []);
 
   function handleLogout() {
     signOut();
   }
+
+  function handleProfileClick() {
+    if (window.innerWidth >= 768) {
+      return;
+    }
+  
+    setIsProfileMenuOpen((current) => !current);
+  }
+
+  
 
   const linkClass = (path: string) => {
     const isActive = location.pathname.startsWith(path);
@@ -63,25 +71,29 @@ const Navbar = () => {
           Collection
         </Link>
 
-        <div className="relative"
-        ref={profileMenuRef}>
+        <div ref={profileMenuRef} className="group relative">
           <button
             type="button"
-            onClick={() =>
-              setIsProfileMenuOpen((current) => !current)
-            }
-            className="px-2 md:px-4 py-2 border-0 rounded-lg hover:bg-blue-500 hover:text-white"
+            className={`px-2 md:px-4 py-2 border-0 rounded-lg
+      md:group-hover:bg-blue-500
+      md:group-hover:text-white
+       ${isProfileMenuOpen
+                ? "bg-blue-500 text-white"
+                : "bg-transparent"
+              }`}
+            onClick={handleProfileClick}
           >
             Profile
           </button>
 
+          {/* MOBILE: click */}
           {isProfileMenuOpen && (
             <div
               className="
         absolute
         bottom-full
         right-0
-        mb-2
+        m-2
         flex
         w-44
         flex-col
@@ -90,31 +102,49 @@ const Navbar = () => {
         bg-white
         p-2
         shadow-lg
-        mx-3
 
-        md:top-full
-        md:bottom-auto
-        md:mt-2
-        md:mb-0
+        md:hidden
       "
             >
-              <Link
-                to="/forgot-password"
-                onClick={() => setIsProfileMenuOpen(false)}
-                className="rounded px-3 py-2 text-left hover:bg-gray-100"
-              >
-                Forgot password
-              </Link>
-
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="rounded px-3 py-2 text-left hover:bg-gray-100"
-              >
-                Logout
-              </button>
+              <button>Forgot password</button>
+              <button>Logout</button>
             </div>
           )}
+
+          {/* DESKTOP: hover */}
+          <div
+            className="
+      absolute
+      right-0
+      top-full
+      hidden
+      w-44
+      flex-col
+      rounded-lg
+      border
+      bg-white
+      p-2
+      shadow-lg
+
+      md:group-hover:flex
+    "
+          >
+            <Link
+              to="/forgot-password"
+              onClick={() => setIsProfileMenuOpen(false)}
+              className="rounded px-3 py-2 text-left hover:bg-gray-100"
+            >
+              Forgot password
+            </Link>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded px-3 py-2 text-left hover:bg-gray-100"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* <button onClick={handleLogout} className="px-2 md:px-4 py-2 border-0 rounded-lg hover:bg-red-400 hover:text-white">Logout</button> */}
