@@ -107,7 +107,7 @@ const CollectionPage = () => {
     URL.revokeObjectURL(objectURL);
   }
   return (
-    <div className="flex flex-1 min-h-0 rounded-2xl bg-gray-100 md:p-6">
+    <div className="flex flex-1 min-h-0 rounded-2xl bg-gray-100 p-3 md:p-6">
       <main className="grid items-start content-start grid-cols-2 gap-6 overflow-y-auto md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {outfits.map((outfit) => (
           <article key={outfit.id}>
