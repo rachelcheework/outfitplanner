@@ -366,7 +366,7 @@ export default function OutfitPage() {
                             No clothing in this category yet
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 gap-3 content-start items-start overflow-y-auto 2xl:grid-cols-3 bg-amber-400">
+                        <div className="grid grid-cols-2 gap-3 content-start items-start overflow-y-auto 2xl:grid-cols-3">
                             {items &&
                                 items.map((item) => (
                                     <button

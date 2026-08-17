@@ -57,18 +57,6 @@ export default function CanvasClothingItem({
         onClick={onSelect}
         onTap={onSelect}
         onDragStart={onSelect}
-        // dragBoundFunc={(position) => {
-        //   return {
-        //     x: Math.max(
-        //       0,
-        //       Math.min(position.x, stageWidth - item.width),
-        //     ),
-        //     y: Math.max(
-        //       0,
-        //       Math.min(position.y, stageHeight - item.height),
-        //     ),
-        //   };
-        // }}
         onDragEnd={(event) => {
           onChange({
             ...item,
