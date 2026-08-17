@@ -21,8 +21,6 @@ type CanvasClothingItemProps = {
 export default function CanvasClothingItem({
   item,
   isSelected,
-  stageWidth,
-  stageHeight,
   onSelect,
   onChange,
   onMoveSelectedItems
