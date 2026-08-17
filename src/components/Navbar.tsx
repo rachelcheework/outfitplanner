@@ -78,9 +78,9 @@ const Navbar = () => {
           <button
             type="button"
             className={` p-2 border-0 rounded-full
-      md:group-hover:bg-blue-500
-      md:group-hover:text-white
-       ${isProfileMenuOpen
+            md:group-hover:bg-blue-500
+            md:group-hover:text-white
+            ${isProfileMenuOpen
                 ? "bg-blue-500 text-white"
                 : "bg-transparent"
               }`}
@@ -93,21 +93,21 @@ const Navbar = () => {
           {isProfileMenuOpen && (
             <div
               className="
-        absolute
-        bottom-full
-        right-0
-        m-2
-        flex
-        w-44
-        flex-col
-        rounded-lg
-        border
-        bg-white
-        p-2
-        shadow-lg
+              absolute
+              bottom-full
+              right-0
+              m-2
+              flex
+              w-44
+              flex-col
+              rounded-lg
+              border
+              bg-white
+              p-2
+              shadow-lg
 
-        md:hidden
-      "
+              md:hidden
+            "
             >
             <Link
               to="/forgot-password"

@@ -71,7 +71,7 @@ export default function OutfitCanvas({
   return (
     <div
       ref={containerRef}
-      className="aspect-square"
+      className="h-full w-full"
     >
       <Stage
         ref={stageRef}

@@ -13,6 +13,7 @@ import fetchClothesByCategory from "../../../api/fetchClothesByCategory";
 
 
 import { RiBringForward, RiBringToFront, RiSendToBack, RiSendBackward, RiDeleteBin6Fill, RiSave3Line } from "react-icons/ri";
+import { FaRedoAlt } from "react-icons/fa";
 
 export default function OutfitPage() {
 
@@ -34,6 +35,13 @@ export default function OutfitPage() {
         return new Promise((resolve) => {
             requestAnimationFrame(() => resolve());
         });
+    }
+
+    function resetCanvas() {
+        setCanvasItems([]);
+        setSelectedId(null);
+        setSaveSuccess(null);
+        setSaveError(null);
     }
 
     async function saveOutfit() {
@@ -327,11 +335,11 @@ export default function OutfitPage() {
         );
     }
     return (
-        <main className="relative flex flex-col gap-6 justify-center md:grid md:grid-cols-4 bg-green-500
+        <main className="relative flex flex-1 flex-col gap-6 justify-center md:grid md:grid-cols-4 bg-green-500
         ">
 
             {/* desktop wardrobe */}
-            <div className="hidden md:flex md:space-x-3 md:col-span-1 bg-amber-950">
+            <div className="hidden min-h-0 md:flex md:space-x-3 md:col-span-1 bg-amber-950">
                 {/* category side menu */}
                 <div className="w-fit h-fit bg-gray-100 rounded-xl p-3 z-50 flex flex-col gap-2">
                     {categories.map((item) => (
@@ -352,18 +360,18 @@ export default function OutfitPage() {
                 </div>
 
                 {/* clothing items */}
-                <div className="flex flex-1 bg-amber-400">
+                <div className="flex">
                     {items.length === 0 ? (
-                        <div className="p-3 justify-center text-sm text-gray-500">
+                        <div className="p-3 justify-center text-sm">
                             No clothing in this category yet
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 gap-3 content-start items-start overflow-y-auto">
+                        <div className="grid grid-cols-2 gap-3 content-start items-start overflow-y-auto 2xl:grid-cols-3 bg-amber-400">
                             {items &&
                                 items.map((item) => (
                                     <button
                                         key={Number(item.id)}
-                                        className="border h-32 border-gray-200 rounded-xl hover:border-2"
+                                        className="border min-h-32 border-gray-200 rounded-xl hover:border-2"
                                         onClick={() =>
                                             addClothingItem(
                                                 {
@@ -387,8 +395,8 @@ export default function OutfitPage() {
 
             </div>
 
-            <div className="flex items-center justify-center px-12 md:col-span-2 ">
-                <div className="aspect-square md:w-full">
+            <div className="flex justify-center md:col-span-2 md:items-center md:px-12">
+                <div className="aspect-square w-full max-w-[calc(100vw-3rem)] md:max-w-140 xl:max-w-175">
                     <OutfitCanvas
                         items={canvasItems}
                         selectedId={selectedId}
@@ -399,14 +407,24 @@ export default function OutfitPage() {
                 </div>
             </div>
 
-            <aside className="flex space-y-3 justify-center flex-col md:w-fit md:col-span-1">
-
-                <div className="flex w-full justify-center md:flex-col md:space-y-1 ">
+            <aside className="flex space-y-3 bg-gray-400 justify-center flex-col md:w-fit md:col-span-1">
+                <div className="flex w-full justify-center md:flex-col md:space-y-1">
+                    <button
+                        type="button"
+                        disabled={canvasItems.length === 0}
+                        onClick={resetCanvas}
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                        <FaRedoAlt size={16} />
+                        <span className="hidden md:inline">
+                            Reset
+                        </span>
+                    </button>
                     <button
                         type="button"
                         disabled={!selectedId}
                         onClick={moveForwardOneLayer}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiBringForward size={24} />
                         <span className="hidden md:inline">
@@ -417,7 +435,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={bringToFront}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiBringToFront size={24} />
                         <span className="hidden md:inline">
@@ -428,7 +446,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={moveBackwardOneLayer}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiSendBackward size={24} />
 
@@ -440,7 +458,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={sendToBack}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiSendToBack size={24} />
 
@@ -452,7 +470,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={!selectedId}
                         onClick={deleteSelectedItem}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiDeleteBin6Fill size={24} />
                         <span className="hidden md:inline">
@@ -461,15 +479,17 @@ export default function OutfitPage() {
                     </button>
                 </div>
 
-                    <button
-                        type="button"
-                        disabled={isSaving || canvasItems.length === 0}
-                        onClick={saveOutfit}
-                        className="flex justify-center rounded-xl items-center md:justify-start space-x-2 bg-blue-500 px-3 py-2 enabled:hover:bg-blue-600 text-white disabled:cursor-not-allowed disabled:bg-gray-300"
-                    >
-                        <RiSave3Line />
-                        <p>{isSaving ? "Saving..." : "Save outfit"} </p>
-                    </button>
+                <button
+                    type="button"
+                    disabled={isSaving || canvasItems.length === 0}
+                    onClick={saveOutfit}
+                    className="flex justify-center rounded-xl items-center md:justify-start space-x-2 bg-blue-500 px-3 py-2 enabled:hover:bg-blue-600 text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+                >
+                    <RiSave3Line />
+                    <p>{isSaving ? "Saving..." : "Save outfit"} </p>
+                </button>
+
+                <div className="h-24 md:h-0">
 
                     {saveError && (
                         <p className="text-center text-red-500 md:text-left">
@@ -482,6 +502,7 @@ export default function OutfitPage() {
                             {saveSuccess}
                         </p>
                     )}
+                </div>
 
             </aside>
 
