@@ -178,24 +178,26 @@ export default function WardrobeCard({
   };
 
   return (
-    <div className="flex h-80 w-full min-w-0 flex-col rounded-xl border border-slate-200 p-4 transition-transform hover:scale-105">
-      <button
-        className="flex h-full w-full min-w-0 cursor-pointer flex-col text-center"
-        onClick={() => openEditModal({ id, itemName, category, image_path, stickerUrl })}
-      >
+    <div>
+      <div className="flex h-80 w-full min-w-0 flex-col rounded-xl border border-slate-200 p-4 transition-transform hover:scale-105">
+        <button
+          className="flex h-full w-full min-w-0 cursor-pointer flex-col text-center"
+          onClick={() => openEditModal({ id, itemName, category, image_path, stickerUrl })}
+        >
 
-        <img
-          src={stickerUrl!}
-          alt={itemName}
-          className="h-48 w-full rounded-lg object-contain"
-        />
+          <img
+            src={stickerUrl!}
+            alt={itemName}
+            className="h-48 w-full rounded-lg object-contain"
+          />
 
 
-        <p className="mt-3 font-medium line-clamp-2 wrap-break-word text-slate-800">{itemName}</p>
+          <p className="mt-3 font-medium line-clamp-2 wrap-break-word text-slate-800">{itemName}</p>
 
-        <p className="text-sm capitalize text-slate-500">{category}</p>
-      </button>
+          <p className="text-sm capitalize text-slate-500">{category}</p>
+        </button>
 
+      </div>
       {isEditModalOpen && (<EditWardrobeItemModal
         editItemId={editItemId}
         stickerUrl={stickerUrl}

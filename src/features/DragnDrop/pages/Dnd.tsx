@@ -170,7 +170,7 @@ const Dnd = () => {
     };
 
     return (
-        <div className="flex flex-1 flex-col space-y-6 justify-center md:flex-row md:justify-center md:min-h-0">
+        <div className="flex flex-1 flex-col space-y-6 items-center justify-center md:justify-start md:min-h-0">
 
             {/* Dropzone */}
             {!isRemovingBackground && stickerUrl === null && (<div
