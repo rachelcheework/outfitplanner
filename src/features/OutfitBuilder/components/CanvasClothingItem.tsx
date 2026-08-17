@@ -10,8 +10,12 @@ type CanvasClothingItemProps = {
   isSelected: boolean;
   stageWidth: number;
   stageHeight: number;
-  onSelect: () => void;
+  onSelect: (multiSelect: boolean) => void;
   onChange: (updatedItem: CanvasItem) => void;
+  onMoveSelectedItems: (
+    deltaX: number,
+    deltaY: number
+  ) => void;
 };
 
 export default function CanvasClothingItem({
@@ -21,11 +25,13 @@ export default function CanvasClothingItem({
   stageHeight,
   onSelect,
   onChange,
+  onMoveSelectedItems
 }: CanvasClothingItemProps) {
   const [image] = useImage(item.imageUrl, "anonymous");
 
   const imageRef = useRef<Konva.Image>(null);
   const transformerRef = useRef<Konva.Transformer>(null);
+  const dragStartRef = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     if (!isSelected) {
@@ -54,16 +60,57 @@ export default function CanvasClothingItem({
         height={item.height}
         rotation={item.rotation}
         draggable
-        onClick={onSelect}
-        onTap={onSelect}
-        onDragStart={onSelect}
-        onDragEnd={(event) => {
-          onChange({
-            ...item,
+        onClick={(event) => {
+          const multiSelect =
+            event.evt.shiftKey ||
+            event.evt.ctrlKey ||
+            event.evt.metaKey;
+
+          onSelect(multiSelect);
+        }}
+        onTap={() => {
+          onSelect(false);
+        }}
+
+        onDragStart={(event) => {
+          // const multiSelect =
+          //   event.evt.shiftKey ||
+          //   event.evt.ctrlKey ||
+          //   event.evt.metaKey;
+
+          // onSelect(multiSelect);
+          if (!isSelected) {
+            onSelect(false);
+          }
+
+          dragStartRef.current = {
             x: event.target.x(),
             y: event.target.y(),
-          });
+          };
         }}
+        onDragMove={(event) => {
+          if (!dragStartRef.current) {
+            return;
+          }
+
+          const deltaX =
+            event.target.x() - dragStartRef.current.x;
+
+          const deltaY =
+            event.target.y() - dragStartRef.current.y;
+
+          onMoveSelectedItems(deltaX, deltaY);
+
+          dragStartRef.current = {
+            x: event.target.x(),
+            y: event.target.y(),
+          };
+        }}
+        onDragEnd={() => {
+          dragStartRef.current = null;
+        }}
+
+
         onTransformEnd={() => {
           const imageNode = imageRef.current;
 

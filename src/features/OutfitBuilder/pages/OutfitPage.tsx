@@ -17,6 +17,29 @@ import { FaRedoAlt } from "react-icons/fa";
 
 export default function OutfitPage() {
 
+    const [canvasItems, setCanvasItems] = useState<CanvasItem[]>([]);
+    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+    function selectItem(id: string, multiSelect: boolean) {
+        setSelectedIds((currentIds) => {
+            // Shift/Ctrl/Cmd click
+            if (multiSelect) {
+                // Already selected → deselect it
+                if (currentIds.includes(id)) {
+                    return currentIds.filter(
+                        (selectedId) => selectedId !== id
+                    );
+                }
+
+                // Not selected → add it
+                return [...currentIds, id];
+            }
+
+            // Normal click → select only this item
+            return [id];
+        });
+    }
+
     const { user } = useAuth();
 
     const categories = clothingCategories;
@@ -39,7 +62,7 @@ export default function OutfitPage() {
 
     function resetCanvas() {
         setCanvasItems([]);
-        setSelectedId(null);
+        setSelectedIds([]);
         setSaveSuccess(null);
         setSaveError(null);
     }
@@ -67,7 +90,7 @@ export default function OutfitPage() {
             /*
              * Remove the Transformer/selection border before exporting.
              */
-            setSelectedId(null);
+            setSelectedIds([]);
 
             /*
              * Give React and Konva time to redraw without the selection.
@@ -147,8 +170,6 @@ export default function OutfitPage() {
         enabled: !!user && !!outfitCategory //query is only enabled if user and outfitCategory exists
     });
 
-    const [canvasItems, setCanvasItems] = useState<CanvasItem[]>([]);
-    const [selectedId, setSelectedId] = useState<string | null>(null);
 
     function addClothingItem(item: ClothingItem) {
         if (!item.image_path) {
@@ -180,72 +201,68 @@ export default function OutfitPage() {
                 newCanvasItem,
             ]);
 
-            setSelectedId(newCanvasItem.id);
+            setSelectedIds([newCanvasItem.id]);
         };
 
         image.src = item.image_path;
     }
 
     function deleteSelectedItem() {
-        if (!selectedId) {
+        if (selectedIds.length === 0) {
             return;
         }
 
         setCanvasItems((currentItems) =>
-            currentItems.filter((item) => item.id !== selectedId),
+            currentItems.filter((item) => !selectedIds.includes(item.id)),
         );
 
-        setSelectedId(null);
+        setSelectedIds([]);
     }
 
     function bringToFront() {
-        if (!selectedId) {
+        if (selectedIds.length === 0) {
             return;
         }
 
         setCanvasItems((currentItems) => {
-            const selectedItem = currentItems.find(
-                (item) => item.id === selectedId,
+            const selectedItems = currentItems.filter((item) =>
+              selectedIds.includes(item.id)
             );
-
-            if (!selectedItem) {
-                return currentItems;
-            }
-
+        
+            const unselectedItems = currentItems.filter(
+              (item) => !selectedIds.includes(item.id)
+            );
+        
             return [
-                ...currentItems.filter(
-                    (item) => item.id !== selectedId,
-                ),
-                selectedItem,
+              ...unselectedItems,
+              ...selectedItems,
             ];
-        });
+          });
     }
 
     function sendToBack() {
-        if (!selectedId) {
-            return;
+        if (selectedIds.length === 0) {
+          return;
         }
-
+      
         setCanvasItems((currentItems) => {
-            const selectedItem = currentItems.find(
-                (item) => item.id === selectedId,
-            );
-
-            if (!selectedItem) {
-                return currentItems;
-            }
-
-            return [
-                selectedItem,
-                ...currentItems.filter(
-                    (item) => item.id !== selectedId,
-                ),
-            ];
+          const selectedItems = currentItems.filter((item) =>
+            selectedIds.includes(item.id)
+          );
+      
+          const unselectedItems = currentItems.filter(
+            (item) => !selectedIds.includes(item.id)
+          );
+      
+          return [
+            ...selectedItems,
+            ...unselectedItems,
+          ];
         });
-    }
+      }
 
     function moveForwardOneLayer() {
-        if (!selectedId) {
+        if (selectedIds.length !== 1) {
             return;
         }
 
@@ -254,6 +271,7 @@ export default function OutfitPage() {
                 (item) => item.id === selectedId,
             );
 
+            const selectedId = selectedIds[0];
             // Item not found, or it is already at the front
             if (
                 selectedIndex === -1 ||
@@ -277,10 +295,11 @@ export default function OutfitPage() {
     }
 
     function moveBackwardOneLayer() {
-        if (!selectedId) {
+        if (selectedIds.length !== 1) {
             return;
         }
 
+        const selectedId = selectedIds[0];
         setCanvasItems((currentItems) => {
             const selectedIndex = currentItems.findIndex(
                 (item) => item.id === selectedId,
@@ -321,7 +340,7 @@ export default function OutfitPage() {
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [selectedId]);
+    }, [selectedIds]);
 
     if (isLoading) {
         return <p className="text-slate-600">Loading items...</p>;
@@ -399,8 +418,9 @@ export default function OutfitPage() {
                 <div className="aspect-square w-full max-w-[calc(100vw-3rem)] md:max-w-140 xl:max-w-175">
                     <OutfitCanvas
                         items={canvasItems}
-                        selectedId={selectedId}
-                        onSelectItem={setSelectedId}
+                        selectedIds={selectedIds}
+                        onSelectItem={selectItem}
+                        onClearSelection={() => setSelectedIds([])}
                         onChangeItems={setCanvasItems}
                         stageRef={stageRef}
                     />
@@ -422,7 +442,7 @@ export default function OutfitPage() {
                     </button>
                     <button
                         type="button"
-                        disabled={!selectedId}
+                        disabled={selectedIds.length === 0}
                         onClick={moveForwardOneLayer}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
@@ -433,7 +453,7 @@ export default function OutfitPage() {
                     </button>
                     <button
                         type="button"
-                        disabled={!selectedId}
+                        disabled={selectedIds.length === 0}
                         onClick={bringToFront}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
@@ -444,7 +464,7 @@ export default function OutfitPage() {
                     </button>
                     <button
                         type="button"
-                        disabled={!selectedId}
+                        disabled={selectedIds.length === 0}
                         onClick={moveBackwardOneLayer}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
@@ -456,7 +476,7 @@ export default function OutfitPage() {
                     </button>
                     <button
                         type="button"
-                        disabled={!selectedId}
+                        disabled={selectedIds.length === 0}
                         onClick={sendToBack}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
@@ -468,7 +488,7 @@ export default function OutfitPage() {
                     </button>
                     <button
                         type="button"
-                        disabled={!selectedId}
+                        disabled={selectedIds.length === 0}
                         onClick={deleteSelectedItem}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >

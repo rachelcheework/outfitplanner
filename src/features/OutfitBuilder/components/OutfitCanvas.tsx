@@ -13,8 +13,12 @@ import type { CanvasItem } from "../types/CanvasItem";
 
 type OutfitCanvasProps = {
   items: CanvasItem[];
-  selectedId: string | null;
-  onSelectItem: (id: string | null) => void;
+  selectedIds: string[];
+  onSelectItem: (
+    id: string,
+    multiSelect: boolean
+  ) => void;
+  onClearSelection: () => void;
   onChangeItems: React.Dispatch<
     React.SetStateAction<CanvasItem[]>
   >;
@@ -23,8 +27,9 @@ type OutfitCanvasProps = {
 
 export default function OutfitCanvas({
   items,
-  selectedId,
+  selectedIds,
   onSelectItem,
+  onClearSelection,
   onChangeItems,
   stageRef,
 }: OutfitCanvasProps) {
@@ -64,8 +69,25 @@ export default function OutfitCanvas({
       event.target === stage ||
       event.target.name() === "canvas-background"
     ) {
-      onSelectItem(null);
+      onClearSelection();
     }
+  }
+
+  function moveSelectedItems(
+    deltaX: number,
+    deltaY: number
+  ) {
+    onChangeItems((currentItems) =>
+      currentItems.map((item) =>
+        selectedIds.includes(item.id)
+          ? {
+              ...item,
+              x: item.x + deltaX,
+              y: item.y + deltaY,
+            }
+          : item
+      )
+    );
   }
 
   return (
@@ -93,11 +115,14 @@ export default function OutfitCanvas({
             <CanvasClothingItem
               key={item.id}
               item={item}
-              isSelected={item.id === selectedId}
+              isSelected={selectedIds.includes(item.id)}
               stageWidth={canvasSize}
               stageHeight={canvasSize}
-              onSelect={() => onSelectItem(item.id)}
+              onSelect={(multiSelect) =>
+                onSelectItem(item.id, multiSelect)
+              }
               onChange={updateItem}
+              onMoveSelectedItems={moveSelectedItems}
             />
           ))}
         </Layer>
