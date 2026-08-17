@@ -335,11 +335,11 @@ export default function OutfitPage() {
         );
     }
     return (
-        <main className="relative flex flex-1 flex-col gap-6 justify-center md:grid md:grid-cols-4 bg-green-500
+        <main className="relative flex flex-1 flex-col gap-6 justify-center md:grid md:grid-cols-4
         ">
 
             {/* desktop wardrobe */}
-            <div className="hidden min-h-0 md:flex md:space-x-3 md:col-span-1 bg-amber-950">
+            <div className="hidden min-h-0 md:flex md:space-x-3 md:col-span-1">
                 {/* category side menu */}
                 <div className="w-fit h-fit bg-gray-100 rounded-xl p-3 z-50 flex flex-col gap-2">
                     {categories.map((item) => (
@@ -407,7 +407,7 @@ export default function OutfitPage() {
                 </div>
             </div>
 
-            <aside className="flex space-y-3 bg-gray-400 justify-center flex-col md:w-fit md:col-span-1">
+            <aside className="flex space-y-3 justify-center flex-col md:w-fit md:col-span-1">
                 <div className="flex w-full justify-center md:flex-col md:space-y-1">
                     <button
                         type="button"
