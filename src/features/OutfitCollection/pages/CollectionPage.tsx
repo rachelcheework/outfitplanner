@@ -107,8 +107,8 @@ const CollectionPage = () => {
     URL.revokeObjectURL(objectURL);
   }
   return (
-    <div className="pb-20 bg-gray-100 p-6 rounded-2xl">
-      <main className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="flex-1 rounded-2xl bg-gray-100 px-6 pt-6 pb-20">
+      <main className="grid items-start content-start grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {outfits.map((outfit) => (
           <article key={outfit.id}>
             {outfit.outfitImageUrl && (

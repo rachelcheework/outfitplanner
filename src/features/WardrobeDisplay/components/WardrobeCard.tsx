@@ -6,6 +6,7 @@ import EditWardrobeItemModal from "./EditWardrobeItemModal";
 import { useReducer } from "react";
 import wardrobeReducer, { initialEditingState } from "../reducer/wardrobeReducer";
 import supabase from "../../../supabase-client";
+import { MAX_ITEM_NAME_LENGTH } from "../../../constants/InputControls";
 
 //data from table
 export type ClothingItem = {
@@ -24,7 +25,7 @@ export default function WardrobeCard({
   stickerUrl
 }: ClothingItem) {
 
-  const {user, userError} = useAuth();
+  const { user, userError } = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -76,6 +77,10 @@ export default function WardrobeCard({
 
       if (editItemName?.trim() === "") {
         editDispatch({ type: "EDIT_SAVE_FAILED", payload: { message: "Please enter an item name." } })
+        return;
+      }
+      if (editItemName?.trim().length > MAX_ITEM_NAME_LENGTH) {
+        editDispatch({ type: "EDIT_SAVE_FAILED", payload: { message: `Item name must be ${MAX_ITEM_NAME_LENGTH} characters or fewer.` } })
         return;
       }
 
@@ -151,7 +156,7 @@ export default function WardrobeCard({
 
       //invalidate query so tanstack query will auto refetch and update data
       await queryClient.invalidateQueries({
-        queryKey: ["clothes", category],
+        queryKey: ["clothes"],
       });
 
       editDispatch({
@@ -175,7 +180,7 @@ export default function WardrobeCard({
   return (
     <div>
       <button
-        className={`rounded-xl border border-slate-200 p-4 transition-transform duration-200 cursor-pointer ${isEditModalOpen ? "scale-100" : "hover:scale-105"
+        className={`rounded-xl border h-80 border-slate-200 p-4 transition-transform duration-200 cursor-pointer ${isEditModalOpen ? "scale-100" : "hover:scale-105"
           }`}
         onClick={() => openEditModal({ id, itemName, category, image_path, stickerUrl })}
       >
@@ -187,7 +192,7 @@ export default function WardrobeCard({
         />
 
 
-        <p className="mt-3 font-medium text-slate-800">{itemName}</p>
+        <p className="mt-3 font-medium line-clamp-2 wrap-break-word text-slate-800">{itemName}</p>
 
         <p className="text-sm capitalize text-slate-500">{category}</p>
       </button>

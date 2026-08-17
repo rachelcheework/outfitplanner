@@ -327,11 +327,11 @@ export default function OutfitPage() {
         );
     }
     return (
-        <main className="relative flex flex-col gap-6 min-h-[calc(100vh-4rem)] justify-center md:grid md:grid-cols-4 md:h-full md:min-h-0 lg:gap-0
+        <main className="relative flex flex-col gap-6 justify-center md:grid md:grid-cols-4 bg-green-500
         ">
 
             {/* desktop wardrobe */}
-            <div className="hidden md:flex md:space-x-3 md:col-span-1 md:min-h-0">
+            <div className="hidden md:flex md:space-x-3 md:col-span-1 bg-amber-950">
                 {/* category side menu */}
                 <div className="w-fit h-fit bg-gray-100 rounded-xl p-3 z-50 flex flex-col gap-2">
                     {categories.map((item) => (
@@ -352,13 +352,13 @@ export default function OutfitPage() {
                 </div>
 
                 {/* clothing items */}
-                <div className="flex flex-1 h-full">
+                <div className="flex flex-1 bg-amber-400">
                     {items.length === 0 ? (
                         <div className="p-3 justify-center text-sm text-gray-500">
                             No clothing in this category yet
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 gap-3 overflow-y-auto">
+                        <div className="grid grid-cols-2 gap-3 content-start items-start overflow-y-auto">
                             {items &&
                                 items.map((item) => (
                                     <button
@@ -387,8 +387,8 @@ export default function OutfitPage() {
 
             </div>
 
-            <div className="flex items-center justify-center md:col-span-2 ">
-                <div className="aspect-square w-full md:max-w-150">
+            <div className="flex items-center justify-center px-12 md:col-span-2 ">
+                <div className="aspect-square md:w-full">
                     <OutfitCanvas
                         items={canvasItems}
                         selectedId={selectedId}

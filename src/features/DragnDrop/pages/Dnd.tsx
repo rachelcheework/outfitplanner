@@ -6,6 +6,7 @@ import { useDropzone, type FileRejection } from "react-dropzone";
 import { removeBackground } from "@imgly/background-removal";
 import ClothingDetailsPopup from "../components/ClothingDetailsPopup";
 import dndReducer, { initialUploadState } from "../reducers/dndReducer";
+import { MAX_ITEM_NAME_LENGTH } from '../../../constants/InputControls';
 
 const Dnd = () => {
 
@@ -111,6 +112,10 @@ const Dnd = () => {
                 dndDispatch({ type: "SAVE_FAILED", payload: { message: "Please enter an item name." } })
                 return;
             }
+            if (itemName?.trim().length > MAX_ITEM_NAME_LENGTH) {
+                dndDispatch({ type: "SAVE_FAILED", payload: { message: `Item name must be ${MAX_ITEM_NAME_LENGTH} characters or fewer.` } })
+                return;
+            }
 
             if (category === "") {
                 dndDispatch({ type: "SAVE_FAILED", payload: { message: "Please select a category." } })
@@ -165,7 +170,7 @@ const Dnd = () => {
     };
 
     return (
-        <div className="flex flex-col items-center gap-6 p-8 min-h-[calc(100vh-4rem)] justify-center md:min-h-0">
+        <div className="flex flex-1 flex-col space-y-6 justify-center md:flex-row md:justify-center md:min-h-0 bg-green-500">
 
             {/* Dropzone */}
             {!isRemovingBackground && stickerUrl === null && (<div
