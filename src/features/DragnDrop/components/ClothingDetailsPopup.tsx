@@ -76,14 +76,14 @@ const ClothingDetailsPopup = ({
         <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="rounded-lg border border-gray-300 px-4 py-2"
+            className="rounded-lg bg-blue-100 px-4 py-2 text-blue-400 hover:outline-2 hover:outline-blue-400"
           >
             Cancel
           </button>
 
           <button
             onClick={onSave}
-            className="rounded-lg bg-black px-4 py-2 text-white"
+            className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
             disabled={saving}
           >
              {saving ? "Saving..." : "Save Item"}

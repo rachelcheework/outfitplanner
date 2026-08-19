@@ -176,7 +176,7 @@ const Dnd = () => {
             {!isRemovingBackground && stickerUrl === null && (<div
                 {...getRootProps()}
                 className={`w-96 h-60 border-2 border-dashed rounded-xl flex items-center justify-center cursor-pointer transition
-        ${isDragActive ? "border-blue-400 bg-blue-50" : "border-gray-300"}`}
+        ${isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"}`}
             >
                 <input {...getInputProps()} />
 
@@ -193,10 +193,10 @@ const Dnd = () => {
             {/* Loading */}
             {isRemovingBackground && (
                 <div className="flex flex-col items-center">
-                    <p className="text-blue-400 font-medium">
+                    <p className="text-blue-500 font-medium">
                         Removing background...
                     </p>
-                    <div className="animate-spin rounded-full h-8 w-8 border-4 border-blue-400 border-t-transparent"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
                 </div>
 
             )}
@@ -233,9 +233,9 @@ const Dnd = () => {
                         className="max-w-xs rounded-lg shadow"
                     />
                     <div className="flex space-x-3">
-                        <button className="border border-gray-500 rounded-xl p-3 hover:bg-gray-500 hover:text-white" onClick={redo}>Redo</button>
+                        <button className="rounded-lg bg-blue-100 px-4 py-2 text-blue-400 hover:outline-2 hover:outline-blue-400 " onClick={redo}>Redo</button>
                         <button
-                            className="border border-blue-400 rounded-xl p-3 bg-blue-400 text-white hover:bg-white hover:text-blue-400"
+                            className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
                             onClick={() => dndDispatch({ type: "OPEN_MODAL" })}
                         >Add to Wardrobe</button>
                     </div>

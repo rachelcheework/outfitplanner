@@ -131,48 +131,50 @@ const CollectionPage = () => {
       {selectedOutfit && (
         <div
           className="
-      fixed
-      inset-0
-      z-50
-      flex
-      items-center
-      justify-center
-      bg-black/50
-    "
+          fixed
+          inset-0
+          z-50
+          flex
+          items-center
+          justify-center
+          bg-black/50
+        "
         >
           <div
             className="
-        relative
-        flex
-        max-h-[90vh]
-        max-w-[90vw]
-        flex-col
-        items-center
-        gap-4
-        rounded-xl
-        bg-white
-        p-6
-      "
+            relative
+            flex
+            max-h-[90vh]
+            max-w-[90vw]
+            flex-col
+            items-center
+            gap-4
+            rounded-xl
+            bg-white
+            p-6
+          "
           >
             <button
               type="button"
               onClick={() => setSelectedOutfit(null)}
               className="
-          absolute
-          right-2
-          top-2
-          flex
-          h-8
-          w-8
-          items-center
-          justify-center
-          rounded-full
-          bg-gray-300
-          opacity-50
-          shadow
-        "
+              group
+              absolute
+              right-2
+              top-2
+              flex
+              h-8
+              w-8
+              items-center
+              justify-center
+              rounded-full
+              bg-gray-300
+              opacity-50
+              shadow
+              hover:bg-gray-700
+            "
             >
-              <IoIosClose size={24} />
+              <IoIosClose size={24} className="group-hover:text-white" />
             </button>
 
             <img
@@ -181,14 +183,14 @@ const CollectionPage = () => {
               className="max-h-[70vh] max-w-[70vw] object-contain"
             />
 
-            <div className="flex gap-3">
+            <div className="flex w-full md:w-1/2 md:items-center justify-between">
               <button
                 type="button"
                 onClick={() => {
                   onDelete(selectedOutfit.id);
                   setSelectedOutfit(null);
                 }}
-                className="rounded bg-red-500 px-4 py-2 text-white"
+                className="rounded-lg bg-blue-100 px-4 py-2 text-blue-400 hover:outline-2 hover:outline-blue-400 "
               >
                 Delete
               </button>
@@ -198,7 +200,7 @@ const CollectionPage = () => {
                 onClick={() =>
                   saveImageToComputer(selectedOutfit.imgURL)
                 }
-                className="rounded bg-blue-500 px-4 py-2 text-white"
+                className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
               >
                 Save to device
               </button>

@@ -433,7 +433,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={canvasItems.length === 0}
                         onClick={resetCanvas}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <FaRedoAlt size={16} />
                         <span className="hidden md:inline">
@@ -444,7 +444,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={selectedIds.length === 0}
                         onClick={moveForwardOneLayer}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiBringForward size={24} />
                         <span className="hidden md:inline">
@@ -455,7 +455,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={selectedIds.length === 0}
                         onClick={bringToFront}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiBringToFront size={24} />
                         <span className="hidden md:inline">
@@ -466,7 +466,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={selectedIds.length === 0}
                         onClick={moveBackwardOneLayer}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiSendBackward size={24} />
 
@@ -478,7 +478,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={selectedIds.length === 0}
                         onClick={sendToBack}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiSendToBack size={24} />
 
@@ -490,7 +490,7 @@ export default function OutfitPage() {
                         type="button"
                         disabled={selectedIds.length === 0}
                         onClick={deleteSelectedItem}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <RiDeleteBin6Fill size={24} />
                         <span className="hidden md:inline">
@@ -503,7 +503,7 @@ export default function OutfitPage() {
                     type="button"
                     disabled={isSaving || canvasItems.length === 0}
                     onClick={saveOutfit}
-                    className="flex justify-center rounded-xl items-center md:justify-start space-x-2 bg-blue-500 px-3 py-2 enabled:hover:bg-blue-600 text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+                    className="flex justify-center rounded-lg items-center md:justify-start space-x-2 bg-blue-500 px-3 py-2 enabled:hover:bg-blue-600 text-white disabled:cursor-not-allowed disabled:bg-gray-300"
                 >
                     <RiSave3Line />
                     <p>{isSaving ? "Saving..." : "Save outfit"} </p>
@@ -534,7 +534,7 @@ export default function OutfitPage() {
                 <div className="relative shrink-0">
 
                     {isCategoryMenuOpen && (
-                        <div className="absolute bottom-full left-0 mb-2 flex w-36  flex-col rounded-lg border bg-white shadow-lg">
+                        <div className="absolute bottom-full left-0 mb-2 flex w-36 flex-col rounded-lg border bg-white shadow-lg">
                             {categories.map((category) => (
                                 <button
                                     key={category}
