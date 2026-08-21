@@ -179,7 +179,7 @@ export default function WardrobeCard({
 
   return (
     <div>
-      <div className="flex h-80 w-full min-w-0 flex-col rounded-xl border border-slate-200 p-4 transition-transform hover:scale-105">
+      <div className="flex h-80 w-full min-w-0 flex-col rounded-xl bg-white p-4 transition-transform hover:scale-105">
         <button
           className="flex h-full w-full min-w-0 cursor-pointer flex-col text-center"
           onClick={() => openEditModal({ id, itemName, category, image_path, stickerUrl })}

@@ -49,15 +49,20 @@ const Navbar = () => {
     return (
       `px-2 py-2 px-4 rounded md:rounded-full ${isActive
         ? "bg-blue-500 text-white"
-        : "text-gray-600 hover:bg-white"
+        : "text-gray-600 hover:bg-gray-100"
       }`
     )
   }
     ;
 
   return (
-    <nav className="flex h-14 justify-between items-center fixed bottom-0 w-full z-50 border-t bg-white 
-    md:sticky md:top-0 md:border-t-0 md:w-fit md:px-6 md:py-3 md:mt-3 md:space-x-12 md:rounded-full md:justify-center md:bg-gray-100 ">
+    <nav className="flex h-14 justify-between items-center fixed bottom-0 w-full z-50 border-t 
+    border border-white/40
+    bg-white/40
+    backdrop-blur-2xl
+    shadow-[0_8px_32px_rgba(0,0,0,0.08)]
+
+    md:sticky md:top-0 md:border-t-0 md:w-fit md:px-6 md:py-3 md:mt-3 md:space-x-12 md:rounded-full md:justify-center ">
       <h1 className="hidden md:block font-bold text-xl">Wardrobe App</h1>
 
       <div className="flex justify-between md:text-sm w-full md:w-auto md:gap-2">

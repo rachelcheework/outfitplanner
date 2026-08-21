@@ -15,7 +15,7 @@ const WardrobeLayout = () => {
     <div className="flex flex-1 h-full min-h-0 w-full">
 
       {/* clothing category menu on md */}
-      <aside className="hidden h-full shrink-0 md:block w-56 rounded-xl border-0 bg-gray-100 p-4">
+      <aside className="hidden h-full shrink-0 md:block w-56 rounded-xl border-0 bg-white p-4">
         <h2 className="mb-4 text-lg font-semibold">Categories</h2>
         <div className="flex flex-col space-y-2">
           {categories.map((item) => (
@@ -25,7 +25,7 @@ const WardrobeLayout = () => {
               className={({ isActive }) =>
                 `rounded-lg px-4 py-2 text-left capitalize transition ${isActive
                   ? "bg-blue-500 text-white"
-                  : "text-slate-700 hover:bg-white"
+                  : "text-slate-700 hover:bg-gray-100"
                 }`
               }
             >
