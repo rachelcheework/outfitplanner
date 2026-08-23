@@ -107,7 +107,8 @@ const CollectionPage = () => {
     URL.revokeObjectURL(objectURL);
   }
   return (
-    <div className="flex flex-1 min-h-0 rounded-2xl bg-gray-100 p-3 md:p-3">
+    <div className="flex flex-1 min-h-0   p-3
+    md:p-3">
       <main className="grid items-start content-start grid-cols-2 gap-3 md:p-3 md:gap-6 overflow-y-auto md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {outfits.map((outfit) => (
           <article key={outfit.id}>
@@ -130,48 +131,19 @@ const CollectionPage = () => {
 
       {selectedOutfit && (
         <div
-          className="
-          fixed
-          inset-0
-          z-50
-          flex
-          items-center
-          justify-center
-          bg-black/50
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50
         "
         >
           <div
-            className="
-            relative
-            flex
-            max-h-[90vh]
-            max-w-[90vw]
-            flex-col
-            items-center
-            gap-4
-            rounded-xl
-            bg-white
-            p-6
+            className="relative flex max-h-[90vh] max-w-[90vw] flex-col items-center gap-4 rounded-xl bg-white p-6
           "
           >
             <button
               type="button"
               onClick={() => setSelectedOutfit(null)}
-              className="
-              group
-              absolute
-              right-2
-              top-2
-              flex
-              h-8
-              w-8
-              items-center
-              justify-center
-              rounded-full
-              bg-gray-300
-              opacity-50
-              shadow
-              hover:bg-gray-700
+              className="group absolute right-2 top-2 flex h-8 w-8
+              items-center justify-center rounded-full text-gray-500 bg-gray-300/50
+              hover:bg-gray-300
             "
             >
               <IoIosClose size={24} className="group-hover:text-white" />
@@ -190,7 +162,7 @@ const CollectionPage = () => {
                   onDelete(selectedOutfit.id);
                   setSelectedOutfit(null);
                 }}
-                className="rounded-lg bg-blue-100 px-4 py-2 text-blue-400 hover:outline-2 hover:outline-blue-400 "
+                className="rounded-lg  px-4 py-2 bg-blue-100/50 text-blue-400 hover:bg-blue-100"
               >
                 Delete
               </button>
@@ -200,7 +172,10 @@ const CollectionPage = () => {
                 onClick={() =>
                   saveImageToComputer(selectedOutfit.imgURL)
                 }
-                className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+                className="rounded-lg px-4 py-2
+                bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+                enabled:hover:bg-blue-500 
+                 "
               >
                 Save to device
               </button>

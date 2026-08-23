@@ -101,7 +101,7 @@ export default function OutfitCanvas({
         height={canvasSize}
         onMouseDown={handleStagePointerDown}
         onTouchStart={handleStagePointerDown}
-        className="overflow-hidden rounded-xl border border-gray-300"
+        className="overflow-hidden rounded-xl ring-1 ring-gray-200 shadow-[0_8px_10px_rgba(0,0,0,0.08)]"
       >
         <Layer>
           <Rect

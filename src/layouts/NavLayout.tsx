@@ -6,7 +6,7 @@ const NavLayout = () => {
 
 
     <div className="flex flex-col-reverse h-dvh md:items-center md:flex-col
-     min-h-screen
+        min-h-screen
         bg-[#f9f7f5]
         bg-[radial-gradient(circle_at_82%_24%,rgba(248,215,225,0.42),transparent_32%),radial-gradient(circle_at_15%_80%,rgba(255,224,204,0.32),transparent_36%),radial-gradient(circle_at_55%_95%,rgba(255,235,220,0.24),transparent_38%)]">
       <Navbar />

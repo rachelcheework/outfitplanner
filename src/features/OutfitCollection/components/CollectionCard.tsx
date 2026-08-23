@@ -14,17 +14,11 @@ const CollectionCard = ({
       type="button"
       onClick={() => onClick(id, imgURL)}
       className="
-        group
-        relative
-        aspect-square
-        w-full
-        overflow-hidden
-        rounded-xl
-        hover:drop-shadow-xl
-        hover:drop-shadow-gray-200
-        transition-transform
-        duration-200
-        hover:scale-105
+        group relative aspect-square w-full overflow-hidden rounded-xl
+        border border-white/40
+        shadow-[0_8px_10px_rgba(0,0,0,0.08)]
+        hover:drop-shadow-xl hover:drop-shadow-gray-200 hover:scale-105
+        transition-transform duration-200
         cursor-pointer
       "
     >

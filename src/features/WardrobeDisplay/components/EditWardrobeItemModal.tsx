@@ -100,14 +100,17 @@ const EditWardrobeItemModal = ({
 
                         <button
                             onClick={onClose}
-                            className="rounded-lg bg-blue-100 px-4 py-2 text-blue-400 hover:outline-2 hover:outline-blue-400 "
+                            className="rounded-lg px-4 py-2
+                             bg-blue-100/50 text-blue-400 hover:bg-blue-100 "
                         >
                             Cancel
                         </button>
 
                         <button
                             onClick={onSave}
-                            className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+                            className="rounded-lg px-4 py-2
+                            bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+                        enabled:hover:bg-blue-500"
                             disabled={isEditSaving}
                         >
                             {isEditSaving ? "Saving..." : "Save Item"}

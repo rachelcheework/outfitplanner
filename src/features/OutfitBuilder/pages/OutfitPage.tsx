@@ -11,7 +11,7 @@ import { clothingCategories, type ClothingCategory } from "../../../constants/Ca
 import { useQuery } from "@tanstack/react-query";
 import fetchClothesByCategory from "../../../api/fetchClothesByCategory";
 
-
+import CanvasButton from "../components/CanvasButton";
 import { RiBringForward, RiBringToFront, RiSendToBack, RiSendBackward, RiDeleteBin6Fill, RiSave3Line } from "react-icons/ri";
 import { FaRedoAlt } from "react-icons/fa";
 
@@ -354,20 +354,21 @@ export default function OutfitPage() {
         );
     }
     return (
-        <main className="relative flex flex-1 flex-col gap-6 justify-center md:grid md:grid-cols-4
+        <main className="relative flex flex-1 flex-col gap-6 justify-center md:grid md:grid-cols-4 md:gap-2
         ">
 
             {/* desktop wardrobe */}
             <div className="hidden min-h-0 md:flex md:space-x-3 md:col-span-1">
                 {/* category side menu */}
-                <div className="w-fit h-fit bg-gray-100 rounded-xl p-3 z-50 flex flex-col gap-2">
+                <div className="w-fit h-fit rounded-xl p-3 z-50 flex flex-col gap-2
+                 bg-white/70 backdrop-blur-2xl shadow-[0_4px_8px_rgba(0,0,0,0.08)]">
                     {categories.map((item) => (
                         <button
                             key={item}
                             className=
                             {`rounded-lg px-4 py-2 text-left capitalize transition ${outfitCategory === item
-                                ? "bg-blue-500 text-white"
-                                : "text-slate-700 hover:bg-white"
+                                ? "bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
+                                : "text-gray-800 hover:bg-gray-200/70"
                                 }
                             `}
                             onClick={() => setOutfitCategory(item)}
@@ -385,12 +386,17 @@ export default function OutfitPage() {
                             No clothing in this category yet
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 gap-3 content-start items-start overflow-y-auto 2xl:grid-cols-3">
+                        <div className="grid grid-cols-2 gap-2 content-start items-start overflow-y-auto md:p-1 2xl:grid-cols-3">
                             {items &&
                                 items.map((item) => (
                                     <button
                                         key={Number(item.id)}
-                                        className="border min-h-32 border-gray-200 rounded-xl hover:border-2"
+                                        className="min-h-32 cursor-pointer
+                                        hover:outline hover:outline-gray-200 rounded-xl
+                                        bg-white/70 backdrop-blur-xl
+                                        shadow-[0_2px_4px_rgba(0,0,0,0.08)]
+                                        focus-visible:outline-none
+                                        "
                                         onClick={() =>
                                             addClothingItem(
                                                 {
@@ -428,90 +434,57 @@ export default function OutfitPage() {
             </div>
 
             <aside className="flex space-y-3 justify-center flex-col md:w-fit md:col-span-1">
-                <div className="flex w-full justify-center md:flex-col md:space-y-1">
-                    <button
-                        type="button"
-                        disabled={canvasItems.length === 0}
-                        onClick={resetCanvas}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        <FaRedoAlt size={16} />
-                        <span className="hidden md:inline">
-                            Reset
-                        </span>
-                    </button>
-                    <button
-                        type="button"
-                        disabled={selectedIds.length === 0}
-                        onClick={moveForwardOneLayer}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        <RiBringForward size={24} />
-                        <span className="hidden md:inline">
-                            Bring Forward
-                        </span>
-                    </button>
-                    <button
-                        type="button"
-                        disabled={selectedIds.length === 0}
-                        onClick={bringToFront}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        <RiBringToFront size={24} />
-                        <span className="hidden md:inline">
-                            Bring to Front
-                        </span>
-                    </button>
-                    <button
-                        type="button"
-                        disabled={selectedIds.length === 0}
-                        onClick={moveBackwardOneLayer}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        <RiSendBackward size={24} />
-
-                        <span className="hidden md:inline">
-                            Send Backwards
-                        </span>
-                    </button>
-                    <button
-                        type="button"
-                        disabled={selectedIds.length === 0}
-                        onClick={sendToBack}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        <RiSendToBack size={24} />
-
-                        <span className="hidden md:inline">
-                            Send to back
-                        </span>
-                    </button>
-                    <button
-                        type="button"
-                        disabled={selectedIds.length === 0}
-                        onClick={deleteSelectedItem}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        <RiDeleteBin6Fill size={24} />
-                        <span className="hidden md:inline">
-                            Delete
-                        </span>
-                    </button>
+                <div className="flex w-full justify-center text-gray-800 md:flex-col md:space-y-1">
+                <CanvasButton 
+                    label="Reset"
+                    btnFunc={resetCanvas}
+                    btnDisabled={canvasItems.length === 0}
+                    icon={<FaRedoAlt size={16} />}
+                    />
+                    <CanvasButton 
+                    label="Bring Forward"
+                    btnFunc={moveForwardOneLayer}
+                    btnDisabled={canvasItems.length === 0}
+                    icon={<RiBringForward size={24} />}
+                    />
+                    <CanvasButton 
+                    label="Bring to Front"
+                    btnFunc={bringToFront}
+                    btnDisabled={canvasItems.length === 0}
+                    icon={<RiBringToFront size={24} />}
+                    />
+                    <CanvasButton 
+                    label="Send Backwards"
+                    btnFunc={moveBackwardOneLayer}
+                    btnDisabled={canvasItems.length === 0}
+                    icon={<RiSendBackward size={24} />}
+                    />
+                    <CanvasButton 
+                    label="Send to back"
+                    btnFunc={sendToBack}
+                    btnDisabled={canvasItems.length === 0}
+                    icon={<RiSendToBack size={24} />}
+                    />
+                    <CanvasButton 
+                    label="Delete"
+                    btnFunc={deleteSelectedItem}
+                    btnDisabled={canvasItems.length === 0}
+                    icon={<RiDeleteBin6Fill size={24} />}
+                    />
                 </div>
 
                 <button
                     type="button"
                     disabled={isSaving || canvasItems.length === 0}
                     onClick={saveOutfit}
-                    className="flex justify-center rounded-lg items-center md:justify-start space-x-2 bg-blue-500 px-3 py-2 enabled:hover:bg-blue-600 text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+                    className="flex justify-center rounded-lg items-center md:justify-start space-x-2 px-3 py-2
+                    bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+                     enabled:hover:bg-blue-500 
+                     disabled:cursor-not-allowed disabled:bg-gray-300"
                 >
                     <RiSave3Line />
                     <p>{isSaving ? "Saving..." : "Save outfit"} </p>
                 </button>
-
-                {/* <button className="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-rose-300 hover:before:[box-shadow:_20px_20px_20px_30px_#a21caf] duration-500 before:duration-500 hover:duration-500 underline underline-offset-2 hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur hover:underline hover:underline-offset-4  origin-left hover:decoration-2 hover:text-rose-300 relative bg-neutral-800 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-violet-500 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-rose-300 after:right-8 after:top-3 after:rounded-full after:blur-lg">
-                    Test
-                </button> */}
 
                 <div className="h-24 md:h-0">
 

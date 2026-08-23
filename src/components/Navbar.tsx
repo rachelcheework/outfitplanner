@@ -47,9 +47,9 @@ const Navbar = () => {
     const isActive = location.pathname.startsWith(path);
 
     return (
-      `px-2 py-2 px-4 rounded md:rounded-full ${isActive
-        ? "bg-blue-500 text-white"
-        : "text-gray-600 hover:bg-gray-100"
+      `px-2 py-2 px-4 rounded  md:rounded-full ${isActive
+        ? "bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
+        : "text-gray-800 hover:bg-gray-200/70"
       }`
     )
   }
@@ -57,13 +57,12 @@ const Navbar = () => {
 
   return (
     <nav className="flex h-14 justify-between items-center fixed bottom-0 w-full z-50 border-t 
-    border border-white/40
-    bg-white/40
-    backdrop-blur-2xl
-    shadow-[0_8px_32px_rgba(0,0,0,0.08)]
-
+    ring-1 ring-gray-200/5
+    bg-white/70
+    backdrop-blur-sm
+    shadow-[0_4px_8px_rgba(0,0,0,0.08)]
     md:sticky md:top-0 md:border-t-0 md:w-fit md:px-6 md:py-3 md:mt-3 md:space-x-12 md:rounded-full md:justify-center ">
-      <h1 className="hidden md:block font-bold text-xl">Wardrobe App</h1>
+      <h1 className="hidden md:block font-medium text-xl text-gray-800">Wardrobe App</h1>
 
       <div className="flex justify-between md:text-sm w-full md:w-auto md:gap-2">
         <Link to="/wardrobe" className={linkClass("/wardrobe")}>
@@ -86,7 +85,7 @@ const Navbar = () => {
             md:group-hover:bg-blue-500
             md:group-hover:text-white
             ${isProfileMenuOpen
-                ? "bg-blue-500 text-white"
+                ? "bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
                 : "bg-transparent"
               }`}
             onClick={handleProfileClick}
@@ -97,20 +96,7 @@ const Navbar = () => {
           {/* MOBILE: click */}
           {isProfileMenuOpen && (
             <div
-              className="
-              absolute
-              bottom-full
-              right-0
-              m-2
-              flex
-              w-44
-              flex-col
-              rounded-lg
-              border
-              bg-white
-              p-2
-              shadow-lg
-
+              className=" absolute bottom-full right-0 m-2 flex w-44 flex-col rounded-lg border bg-white p-2 shadow-lg
               md:hidden
             "
             >
@@ -134,26 +120,17 @@ const Navbar = () => {
 
           {/* DESKTOP: hover */}
           <div
-            className="
-      absolute
-      right-0
-      top-full
-      hidden
-      w-44
-      flex-col
-      rounded-lg
-      border
-      bg-white
-      p-2
-      shadow-lg
-
-      md:group-hover:flex
-    "
+            className="absolute right-0 top-full hidden w-44 flex-col space-y-2 rounded-lg p-2 text-gray-800
+            ring-1 ring-black/5
+          bg-white
+            shadow-[0_5px_10px_rgba(0,0,0,0.08)]
+            md:group-hover:flex
+          "
           >
             <Link
               to="/forgot-password"
               onClick={() => setIsProfileMenuOpen(false)}
-              className="rounded px-3 py-2 text-left hover:bg-gray-100"
+              className="rounded-lg px-3 py-2 text-left hover:bg-gray-100"
             >
               Change password
             </Link>
@@ -161,14 +138,12 @@ const Navbar = () => {
             <button
               type="button"
               onClick={handleLogout}
-              className="rounded px-3 py-2 text-left hover:bg-gray-100"
+              className="rounded-lg px-3 py-2 text-left hover:bg-gray-100"
             >
               Logout
             </button>
           </div>
         </div>
-
-        {/* <button onClick={handleLogout} className="px-2 md:px-4 py-2 border-0 rounded-lg hover:bg-red-400 hover:text-white">Logout</button> */}
       </div>
     </nav>
   );
