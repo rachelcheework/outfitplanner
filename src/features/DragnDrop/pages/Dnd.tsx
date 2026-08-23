@@ -230,12 +230,17 @@ const Dnd = () => {
                     <img
                         src={stickerUrl}
                         alt="sticker"
-                        className="max-w-xs rounded-lg shadow"
+                        className="max-w-xs rounded-lg
+                                border border-black/5
+                                bg-white/70
+                                backdrop-blur-xl
+                                shadow-[0_12px_32px_rgba(0,0,0,0.08)]"
                     />
                     <div className="flex space-x-3">
-                        <button className="rounded-lg bg-blue-100 px-4 py-2 text-blue-400 hover:outline-2 hover:outline-blue-400 " onClick={redo}>Redo</button>
+                        <button className="rounded-lg px-4 py-2 bg-blue-200/50 text-blue-400 backdrop-blur-3xl hover:bg-blue-200 " onClick={redo}>Redo</button>
                         <button
-                            className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+                            className="rounded-lg bg-blue-500/80 px-4 py-2 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+                             hover:bg-blue-500"
                             onClick={() => dndDispatch({ type: "OPEN_MODAL" })}
                         >Add to Wardrobe</button>
                     </div>

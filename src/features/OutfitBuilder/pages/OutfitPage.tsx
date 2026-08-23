@@ -392,7 +392,8 @@ export default function OutfitPage() {
                                     <button
                                         key={Number(item.id)}
                                         className="min-h-32 cursor-pointer
-                                        hover:outline hover:outline-gray-200 rounded-xl
+                                         hover:drop-shadow-sm hover:drop-shadow-gray-50 hover:scale-105
+                                        rounded-xl
                                         bg-white/70 backdrop-blur-xl
                                         shadow-[0_2px_4px_rgba(0,0,0,0.08)]
                                         focus-visible:outline-none

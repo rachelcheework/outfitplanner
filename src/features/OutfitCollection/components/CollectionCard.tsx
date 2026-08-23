@@ -17,7 +17,7 @@ const CollectionCard = ({
         group relative aspect-square w-full overflow-hidden rounded-xl
         border border-white/40
         shadow-[0_8px_10px_rgba(0,0,0,0.08)]
-        hover:drop-shadow-xl hover:drop-shadow-gray-200 hover:scale-105
+        hover:drop-shadow-sm hover:drop-shadow-gray-50 hover:scale-105
         transition-transform duration-200
         cursor-pointer
       "

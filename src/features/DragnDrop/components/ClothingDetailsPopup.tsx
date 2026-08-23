@@ -26,7 +26,7 @@ const ClothingDetailsPopup = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-lg">
-        <h2 className="mb-4 text-xl font-semibold">Add Clothing Details</h2>
+        <h2 className="mb-4 text-gray-800 text-xl font-semibold">Add Clothing Details</h2>
 
         {sticker && (
           <img
@@ -37,7 +37,7 @@ const ClothingDetailsPopup = ({
         )}
 
         <div className="mb-4">
-          <label className="mb-1 block text-sm font-medium">
+          <label className="mb-1 block text-gray-800 text-sm font-medium">
             Clothing Name
           </label>
 
@@ -47,17 +47,17 @@ const ClothingDetailsPopup = ({
             onChange={(e) => onItemNameChange(e.target.value)}
             maxLength={30}
             placeholder="e.g. White linen shirt"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800 outline-none focus:border-gray-800"
           />
         </div>
 
         <div className="mb-6">
-          <label className="mb-1 block text-sm font-medium">Category</label>
+          <label className="mb-1 block text-gray-800 text-sm font-medium">Category</label>
 
           <select
             value={category}
             onChange={(e) => onCategoryChange(e.target.value as ClothingCategory)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800 outline-none focus:border-gray-800"
           >
             <option value="">Select a category</option>
 
@@ -76,14 +76,15 @@ const ClothingDetailsPopup = ({
         <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="rounded-lg bg-blue-100 px-4 py-2 text-blue-400 hover:outline-2 hover:outline-blue-400"
+            className="rounded-lg px-4 py-2 bg-blue-100/50 text-blue-400 hover:bg-blue-100 "
           >
             Cancel
           </button>
 
           <button
             onClick={onSave}
-            className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+            className="rounded-lg px-4 py-2 bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+                        hover:bg-blue-500"
             disabled={saving}
           >
              {saving ? "Saving..." : "Save Item"}

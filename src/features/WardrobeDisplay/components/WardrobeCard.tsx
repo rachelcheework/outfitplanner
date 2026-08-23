@@ -179,7 +179,8 @@ export default function WardrobeCard({
 
   return (
     <div>
-      <div className="flex h-80 w-full min-w-0 flex-col rounded-xl p-4 transition-transform hover:scale-105
+      <div className="flex h-80 w-full min-w-0 flex-col rounded-xl p-4 transition-transform 
+        hover:scale-105 hover:drop-shadow-sm hover:drop-shadow-gray-50 
          border border-white/40
         bg-white/70
           backdrop-blur-xl
