@@ -506,7 +506,7 @@ export default function OutfitPage() {
 
 
             {/* mobile wardrobe */}
-            <div className="fixed bottom-14 left-0 right-0 z-40 flex gap-2 py-2 pr-2 md:hidden">
+            <div className="fixed bottom-20 left-6 right-6 z-40 flex gap-2 py-2 pr-2 md:hidden">
 
                 {/* category selector */}
                 <div className="relative shrink-0">
