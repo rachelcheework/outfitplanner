@@ -70,7 +70,7 @@ const ClothingDetailsPopup = ({
         </div>
 
         {modalError && (
-                <p className="text-red-500">{modalError}</p>
+                <p className="text-red-500 mb-6">{modalError}</p>
             )}
 
         <div className="flex justify-end gap-3">

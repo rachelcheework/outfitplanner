@@ -78,15 +78,12 @@ const EditWardrobeItemModal = ({
                     </select>
                 </div>
 
-                <div className="h-12">
-
                     {editingSuccessMessage && (
-                        <p className="text-green-500">{editingSuccessMessage}</p>
+                        <p className="text-green-500 mb-6">{editingSuccessMessage}</p>
                     )}
                     {editingModalError && (
-                        <p className="text-red-500">{editingModalError}</p>
+                        <p className="text-red-500 mb-6">{editingModalError}</p>
                     )}
-                </div>
 
                 <div className="w-full flex justify-between">
                     <button

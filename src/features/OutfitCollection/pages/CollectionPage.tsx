@@ -109,7 +109,7 @@ const CollectionPage = () => {
   return (
     <div className="flex flex-1 min-h-0   p-3
     md:p-3">
-      <main className="grid items-start content-start grid-cols-2 gap-3 md:p-3 md:gap-6 overflow-y-auto md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <main className="grid items-start content-start grid-cols-2 gap-3 px-1 pb-3 md:p-3 md:gap-6 overflow-y-auto md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {outfits.map((outfit) => (
           <article key={outfit.id}>
             {outfit.outfitImageUrl && (

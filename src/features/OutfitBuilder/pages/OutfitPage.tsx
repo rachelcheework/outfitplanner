@@ -354,7 +354,7 @@ export default function OutfitPage() {
         );
     }
     return (
-        <main className="relative flex flex-1 flex-col gap-6 justify-center md:grid md:grid-cols-4 md:gap-2
+        <main className="relative flex flex-1 flex-col s gap-6 justify-center md:grid md:grid-cols-4 md:gap-2
         ">
 
             {/* desktop wardrobe */}
@@ -506,13 +506,13 @@ export default function OutfitPage() {
 
 
             {/* mobile wardrobe */}
-            <div className="fixed bottom-14 left-0 right-0 z-40 flex gap-2 border-t px-2 md:hidden">
+            <div className="fixed bottom-14 left-0 right-0 z-40 flex gap-2 py-2 pr-2 md:hidden">
 
                 {/* category selector */}
                 <div className="relative shrink-0">
 
                     {isCategoryMenuOpen && (
-                        <div className="absolute bottom-full left-0 mb-2 flex w-36 flex-col rounded-lg border bg-white shadow-lg">
+                        <div className="absolute bottom-full left-2 mb-2 p-1 flex w-36 flex-col space-y-1 rounded-lg bg-white ring-1 ring-black/5 shadow-lg">
                             {categories.map((category) => (
                                 <button
                                     key={category}
@@ -532,7 +532,7 @@ export default function OutfitPage() {
                         onClick={() =>
                             setIsCategoryMenuOpen((current) => !current)
                         }
-                        className="rounded-lg bg-slate-100 px-3 py-2 h-20 w-32 capitalize"
+                        className="rounded-lg bg-white text-gray-800 pr-3 h-20 w-32 capitalize"
                     >
                         {outfitCategory} ↑
                     </button>
@@ -550,7 +550,7 @@ export default function OutfitPage() {
                         items.map((item) => (
                             <button
                                 key={Number(item.id)}
-                                className="h-20 w-20 shrink-0 border border-gray-400 rounded-xl overflow-hidden"
+                                className="aspect-square h-20 shrink-0 border border-black/10 bg-white rounded-xl overflow-hidden"
                                 onClick={() =>
                                     addClothingItem({
                                         id: Number(item.id),

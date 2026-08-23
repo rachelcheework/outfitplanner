@@ -21,9 +21,9 @@ const Navbar = () => {
         setIsProfileMenuOpen(false);
       }
     }
-
+  
     document.addEventListener("pointerdown", handleOutsideClick);
-
+  
     return () => {
       document.removeEventListener("pointerdown", handleOutsideClick);
     };
@@ -37,17 +37,17 @@ const Navbar = () => {
     if (window.innerWidth >= 768) {
       return;
     }
-
+  
     setIsProfileMenuOpen((current) => !current);
   }
 
-
+  
 
   const linkClass = (path: string) => {
     const isActive = location.pathname.startsWith(path);
 
     return (
-      `px-2 py-2 px-4 rounded  md:rounded-full ${isActive
+      `px-2 py-2 px-4 rounded-full ${isActive
         ? "bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
         : "text-gray-800 hover:bg-gray-200/70"
       }`
@@ -56,14 +56,14 @@ const Navbar = () => {
     ;
 
   return (
-    <nav className="flex h-14 justify-between items-center fixed bottom-0 w-full z-50 border-t 
+    <nav className="flex h-14 justify-between items-center fixed bottom-0 w-full z-50 px-3 bg-white
     ring-1 ring-gray-200/5
-    bg-white/70
+    md:bg-white/70
     backdrop-blur-sm
     shadow-[0_4px_8px_rgba(0,0,0,0.08)]
     md:sticky md:top-0 md:border-t-0 md:w-fit md:px-6 md:py-3 md:mt-3 md:space-x-12 md:rounded-full md:justify-center ">
       <Link to="/wardrobe">
-        <h1 className="hidden md:block font-medium text-xl text-gray-800">Wardrobe App</h1>
+      <h1 className="hidden md:block font-medium text-xl text-gray-800">Wardrobe App</h1>
       </Link>
 
       <div className="flex justify-between md:text-sm w-full md:w-auto md:gap-2">
@@ -92,31 +92,35 @@ const Navbar = () => {
               }`}
             onClick={handleProfileClick}
           >
-            <IoPerson size={20} />
+            <IoPerson size={20}/>
           </button>
 
           {/* MOBILE: click */}
           {isProfileMenuOpen && (
             <div
-              className=" absolute bottom-full right-0 m-2 flex w-44 flex-col rounded-lg border bg-white p-2 shadow-lg
+              className=" absolute bottom-full right-0 m-2 flex w-44 flex-col space-y-2 rounded-lg p-2 text-gray-800
+              ring-1 ring-black/5
+            bg-white
+              backdrop-blur-3xl
+              shadow-[0_5px_10px_rgba(0,0,0,0.08)]
               md:hidden
             "
             >
-              <Link
-                to="/forgot-password"
-                onClick={() => setIsProfileMenuOpen(false)}
-                className="rounded px-3 py-2 text-left hover:bg-gray-100"
-              >
-                Change password
-              </Link>
+            <Link
+              to="/forgot-password"
+              onClick={() => setIsProfileMenuOpen(false)}
+              className="rounded-lg px-3 py-2 text-left"
+            >
+              Change password
+            </Link>
 
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="rounded px-3 py-2 text-left hover:bg-gray-100"
-              >
-                Logout
-              </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-lg px-3 py-2 text-left"
+            >
+              Logout
+            </button>
             </div>
           )}
 
