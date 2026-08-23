@@ -550,7 +550,7 @@ export default function OutfitPage() {
                         items.map((item) => (
                             <button
                                 key={Number(item.id)}
-                                className="aspect-square h-20 shrink-0 border border-black/10 bg-white rounded-xl overflow-hidden"
+                                className="aspect-square h-20 shrink-0 border border-black/10 bg-white rounded-xl overflow-hidden focus:outline-none"
                                 onClick={() =>
                                     addClothingItem({
                                         id: Number(item.id),
