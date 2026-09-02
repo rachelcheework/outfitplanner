@@ -112,7 +112,7 @@ const CollectionPage = () => {
       {outfits.length === 0 ? (
       <div className="flex w-full items-center justify-center">
         <p>
-          No outfits created yet.
+          No outfits created yet
         </p>
       </div>
     ) : (
