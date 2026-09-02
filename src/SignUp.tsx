@@ -20,16 +20,16 @@ const SignUp = () => {
             password: password,
             options: {
                 data: {
-                  first_name: firstName,
-                  last_name: lastName,
+                    first_name: firstName,
+                    last_name: lastName,
                 },
-              },
+            },
         });
 
         if (error) {
             setErrorMessage("Error signing up: " + error.message)
             return;
-        } 
+        }
 
         // const user = data.user;
 
@@ -67,14 +67,18 @@ const SignUp = () => {
         <div className='flex flex-col h-screen items-center justify-center space-y-6'>
 
             {/* page name */}
-            <h1 className='text-blue-600 text-2xl font-bold'>Sign Up Page</h1>
+            <h1 className='text-gray-800 text-2xl font-medium'>Sign Up Page</h1>
 
             <div className='w-full px-6 flex justify-center md:w-1/2 md:px-12'>
                 <form className='w-full' onSubmit={submitSignUp}>
 
                     <div className="flex flex-row space-x-3 w-full mb-3">
                         <input
-                            className='w-1/2 border border-gray-200 rounded-lg p-2'
+                            className='w-full rounded-lg p-2 mb-3 focus:outline-gray-400
+                            ring-1 ring-gray-200/5
+                            bg-white/70
+                            backdrop-blur-sm
+                            shadow-[0_4px_8px_rgba(0,0,0,0.08)]'
                             type="text"
                             required
                             value={firstName}
@@ -83,7 +87,11 @@ const SignUp = () => {
                         />
 
                         <input
-                            className='w-1/2 border border-gray-200 rounded-lg p-2'
+                            className='w-full rounded-lg p-2 mb-3 focus:outline-gray-400
+                            ring-1 ring-gray-200/5
+                            bg-white/70
+                            backdrop-blur-sm
+                            shadow-[0_4px_8px_rgba(0,0,0,0.08)]'
                             type="text"
                             required
                             value={lastName}
@@ -93,7 +101,11 @@ const SignUp = () => {
                     </div>
 
                     <input
-                        className='w-full border border-gray-200 rounded-lg p-2 mb-3'
+                        className='w-full rounded-lg p-2 mb-3 focus:outline-gray-400
+                        ring-1 ring-gray-200/5
+                        bg-white/70
+                        backdrop-blur-sm
+                        shadow-[0_4px_8px_rgba(0,0,0,0.08)]'
                         type="text"
                         required
                         value={email}
@@ -101,7 +113,11 @@ const SignUp = () => {
                         placeholder='Email'
                     />
                     <input
-                        className='w-full border border-gray-200 rounded-lg p-2 mb-3'
+                        className='w-full rounded-lg p-2 mb-3 focus:outline-gray-400
+                        ring-1 ring-gray-200/5
+                        bg-white/70
+                        backdrop-blur-sm
+                        shadow-[0_4px_8px_rgba(0,0,0,0.08)]'
                         type="password"
                         required
                         value={password}
@@ -114,13 +130,15 @@ const SignUp = () => {
                     {message && <p className='text-green-600 mt-2'>{message}</p>}
 
                     <button
-                        className='w-full mt-6 border rounded-lg p-2 bg-blue-600 text-white hover:bg-white hover:border-blue-600 hover:text-blue-600'
+                        className='w-full mt-6 rounded-lg p-2
+                        bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+                        hover:bg-blue-500'
                         type='submit'>Sign Up</button>
                 </form>
             </div>
 
-            <div className="flex space-x-2 text-gray-600">
-                <span>Already Have an Account? </span><Link className='text-blue-600 hover:underline' to="/">Log In</Link>
+            <div className="flex space-x-2 text-gray-500">
+                <span>Already Have an Account? </span><Link className='text-gray-800 hover:underline' to="/">Log In</Link>
             </div>
         </div>
     )

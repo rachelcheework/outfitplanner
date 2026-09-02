@@ -32,13 +32,17 @@ const Login = () => {
     <div className='flex flex-col h-screen items-center justify-center px-6 space-y-6'>
 
       {/* page name */}
-      <h1 className='text-blue-600 text-2xl font-bold'>Login Page</h1>
+      <h1 className='text-gray-800 text-2xl font-medium'>Login Page</h1>
 
       {/* login form */}
       <div className='w-full flex justify-center md:w-1/2 md:px-12'>
         <form className='w-full' onSubmit={submitLogin}>
           <input
-            className='w-full border border-gray-200 rounded-lg p-2 mb-3'
+            className='w-full rounded-lg p-2 mb-3 focus:outline-gray-400
+            ring-1 ring-gray-200/5
+          bg-white/70
+            backdrop-blur-sm
+            shadow-[0_4px_8px_rgba(0,0,0,0.08)]'
             type="email"
             required
             value={email}
@@ -47,7 +51,11 @@ const Login = () => {
           />
 
           <input
-            className='w-full border border-gray-200 rounded-lg p-2'
+            className='w-full rounded-lg p-2 mb-3 focus:outline-gray-400
+            ring-1 ring-gray-200/5
+          bg-white/70
+            backdrop-blur-sm
+            shadow-[0_4px_8px_rgba(0,0,0,0.08)]'
             type="password"
             required
             value={password}
@@ -59,15 +67,18 @@ const Login = () => {
           {message && <p className='text-red-500 mt-2'>{message}</p>}
 
           <button
-            className='w-full mt-6 border rounded-lg p-2 bg-blue-600 text-white hover:bg-white hover:border-blue-600 hover:text-blue-600' type='submit'>Log In</button>
+            className='w-full mt-6 rounded-lg p-2
+            bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+            hover:bg-blue-500
+            ' type='submit'>Log In</button>
         </form>
       </div>
 
       <div className="flex w-full justify-between md:flex-row md:w-1/2 md:px-12">
         {/* forgot password */}
-          <Link className='text-blue-600 hover:underline' to="/forgot-password">Forget Password?</Link>
+          <Link className='text-gray-800 hover:underline' to="/forgot-password">Forget Password?</Link>
         {/* sign up */}
-          <Link className='text-blue-600 hover:underline' to="/signup">Create Account</Link>
+          <Link className='text-gray-800 hover:underline' to="/signup">Create Account</Link>
       </div>
 
 

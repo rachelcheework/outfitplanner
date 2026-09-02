@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavLayout from "./layouts/NavLayout";
 import WardrobeLayout from "./layouts/WardrobeLayout";
+import AuthLayout from "./layouts/AuthLayout";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
@@ -15,17 +16,19 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route
-          path="/forgot-password"
-          element={<ForgotPassword />}
-        />
+        <Route element={<AuthLayout />}>
+          <Route path='/' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route
+            path="/forgot-password"
+            element={<ForgotPassword />}
+          />
 
-        <Route
-          path="/reset-password"
-          element={<ResetPassword />}
-        />
+          <Route
+            path="/reset-password"
+            element={<ResetPassword />}
+          />
+        </Route>
 
         <Route element={<Wrapper />}>
           {/* Shared layout */}
