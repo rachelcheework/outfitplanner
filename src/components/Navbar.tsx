@@ -51,7 +51,9 @@ const Navbar = () => {
     const isActive = location.pathname.startsWith(path);
 
     return (
-      `px-2 py-2 md:px-4 rounded-full ${isActive
+      `flex h-11 w-11 items-center justify-center rounded-full
+       md:h-auto md:w-auto md:px-4 md:py-2
+      ${isActive
         ? "bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
         : "text-gray-800 hover:bg-gray-200/70"
       }`
@@ -60,7 +62,7 @@ const Navbar = () => {
     ;
 
   return (
-    <nav className="flex h-14 items-center fixed bottom-3 left-6 right-6 z-50 rounded-full justify-center
+    <nav className="flex h-12 items-center fixed bottom-3 left-6 right-6 z-50 rounded-full justify-center
     ring-1 ring-gray-200/5
     bg-white/70
     backdrop-blur-sm
@@ -70,7 +72,7 @@ const Navbar = () => {
       <h1 className="hidden md:block font-medium text-xl text-gray-800">Wardrobe App</h1>
       </Link>
 
-      <div className="flex w-full justify-between items-center px-3 md:space-x-0 md:text-sm md:w-auto md:gap-2">
+      <div className="flex w-full justify-between items-center px-3 md:text-sm md:w-auto md:gap-2 md:px-0">
         <Link to="/wardrobe" className={linkClass("/wardrobe")}>
           <FaTshirt size={24} className="md:hidden"/>
           <p className="hidden md:flex">Wardrobe</p>

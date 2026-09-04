@@ -41,12 +41,12 @@ const EditWardrobeItemModal = ({
                     <img
                         src={stickerUrl}
                         alt="Clothing with BG removed"
-                        className="mb-4 h-48 w-full rounded-lg bg-gray-100 object-contain"
+                        className="mb-2 h-36 md:mb-4 md:h-48 w-full rounded-lg object-contain"
                     />
                 )}
 
                 <div className="mb-4">
-                    <label className="mb-1 block text-sm font-medium">
+                    <label className="mb-1 block text-xs md:text-sm font-medium">
                         Clothing Name
                     </label>
 
@@ -56,17 +56,17 @@ const EditWardrobeItemModal = ({
                         onChange={(e) => onEditedItemNameChange(e.target.value)}
                         maxLength={30}
                         // placeholder="e.g. White linen shirt"
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+                        className="text-sm md:text-base w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
                     />
                 </div>
 
                 <div className="mb-6">
-                    <label className="mb-1 block text-sm font-medium">Category</label>
+                    <label className="mb-1 block text-xs md:text-sm font-medium">Category</label>
 
                     <select
                         value={editCategory}
                         onChange={(e) => onEditedCategoryChange(e.target.value as ClothingCategory)}
-                        className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+                        className="text-sm md:text-base w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
                     >
                         {/* <option value="">Select a category</option> */}
 
@@ -79,16 +79,16 @@ const EditWardrobeItemModal = ({
                 </div>
 
                     {editingSuccessMessage && (
-                        <p className="text-green-500 mb-6">{editingSuccessMessage}</p>
+                        <p className="text-xs md:text-base text-green-500 mb-6">{editingSuccessMessage}</p>
                     )}
                     {editingModalError && (
-                        <p className="text-red-500 mb-6">{editingModalError}</p>
+                        <p className="text-xs md:text-base text-red-500 mb-6">{editingModalError}</p>
                     )}
 
                 <div className="w-full flex justify-between">
                     <button
                         onClick={onDelete}
-                        className="rounded-lg text-blue-400 hover:text-blue-500"
+                        className="text-xs md:text-base rounded-lg text-blue-400 hover:text-blue-500"
                         disabled={isDeleting}
                     >
                         {isDeleting ? "Deleting..." : "Delete Item"}
@@ -97,7 +97,7 @@ const EditWardrobeItemModal = ({
 
                         <button
                             onClick={onClose}
-                            className="rounded-lg px-4 py-2
+                            className="text-xs md:text-base rounded-lg px-4 py-2
                              bg-blue-100/50 text-blue-400 hover:bg-blue-100 "
                         >
                             Cancel
@@ -105,7 +105,7 @@ const EditWardrobeItemModal = ({
 
                         <button
                             onClick={onSave}
-                            className="rounded-lg px-4 py-2
+                            className="text-xs md:text-base rounded-lg px-4 py-2
                             bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
                         enabled:hover:bg-blue-500"
                             disabled={isEditSaving}

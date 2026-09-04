@@ -21,7 +21,7 @@ const Hamburger = ({ isOpen, setIsOpen, navToggle, categories }: HamburgerProps)
   return (
     <div>
       {/* hamburger */}
-      <div className="absolute top-10 left-10">
+      <div className="absolute top-6 left-6 z-70">
         <button
           onClick={navToggle}
           className="relative z-70 block h-6 w-6 cursor-pointer transition-all duration-200 focus:outline-none md:hidden"
@@ -44,7 +44,7 @@ const Hamburger = ({ isOpen, setIsOpen, navToggle, categories }: HamburgerProps)
       </div>
 
       {/* mobile menu */}
-      <div className={`flex absolute z-50 top-0 bottom-0 left-0 flex-col self-end w-full min-h-screen py-1 pt-36 px-12 space-y-6 text-md text-gray-800 bg-white/70 backdrop-blur-xl transition-all duration-750 ease-out
+      <div className={`flex absolute z-50 top-0 bottom-0 left-0 flex-col self-end w-full min-h-screen pt-24 px-12 space-y-6 text-md text-gray-800 bg-white/70 backdrop-blur-xl transition-all duration-750 ease-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         {categories.map((item) => {
           return (
