@@ -12,7 +12,7 @@ const NavLayout = () => {
           <Navbar />
 
 
-      <main className="flex flex-1 w-full min-h-0 p-6 pb-20 md:pb-6">
+      <main className="flex flex-1 w-full min-h-0 p-1 pb-20 md:px-6 md:pb-6">
         <Outlet />
       </main>
     </div>
