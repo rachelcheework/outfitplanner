@@ -16,7 +16,7 @@ const CanvasButton = ({ label, btnFunc, btnDisabled, icon }: CanvasButtonProps) 
             disabled:cursor-not-allowed disabled:opacity-50"
         >
             {icon}
-            <span className="hidden md:inline">
+            <span className="hidden xl:inline">
                 {label}
             </span>
         </button>

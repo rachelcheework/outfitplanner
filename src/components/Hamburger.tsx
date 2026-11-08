@@ -24,7 +24,7 @@ const Hamburger = ({ isOpen, setIsOpen, navToggle, categories }: HamburgerProps)
       <div className="absolute top-6 left-6 z-70">
         <button
           onClick={navToggle}
-          className="relative z-70 block h-6 w-6 cursor-pointer transition-all duration-200 focus:outline-none md:hidden"
+          className="relative z-70 block h-6 w-6 cursor-pointer transition-all duration-200 focus:outline-none lg:hidden"
         >
           <span
             className={`absolute left-0 top-0 h-0.5 w-6 bg-gray-800 transition-all duration-500 transform ${isOpen ? "rotate-45 translate-y-1.75" : ""

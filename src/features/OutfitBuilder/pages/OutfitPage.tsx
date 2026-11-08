@@ -47,6 +47,23 @@ export default function OutfitPage() {
 
     //for mobile category menu dropdown
     const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsCategoryMenuOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     //saving the canvas
     const stageRef = useRef<Konva.Stage>(null);
@@ -179,6 +196,11 @@ export default function OutfitPage() {
         const image = new window.Image();
 
         image.onload = () => {
+            const stage = stageRef.current;
+
+            if (!stage) {
+                return;
+            }
             const maxSize = 150;
 
             const scale = Math.min(
@@ -186,13 +208,16 @@ export default function OutfitPage() {
                 maxSize / image.height
             );
 
+            const itemWidth = image.width * scale;
+            const itemHeight = image.height * scale;
+
             const newCanvasItem: CanvasItem = {
                 id: crypto.randomUUID(),
                 imageUrl: item.image_path,
-                x: 250,
-                y: 200,
-                width: image.width * scale,
-                height: image.height * scale,
+                x: stage.width() / 2 - itemWidth / 2,
+                y: stage.height() / 2 - itemHeight / 2,
+                width: itemWidth,
+                height: itemHeight,
                 rotation: 0,
             };
 
@@ -226,40 +251,40 @@ export default function OutfitPage() {
 
         setCanvasItems((currentItems) => {
             const selectedItems = currentItems.filter((item) =>
-              selectedIds.includes(item.id)
+                selectedIds.includes(item.id)
             );
-        
+
             const unselectedItems = currentItems.filter(
-              (item) => !selectedIds.includes(item.id)
+                (item) => !selectedIds.includes(item.id)
             );
-        
+
             return [
-              ...unselectedItems,
-              ...selectedItems,
+                ...unselectedItems,
+                ...selectedItems,
             ];
-          });
+        });
     }
 
     function sendToBack() {
         if (selectedIds.length === 0) {
-          return;
+            return;
         }
-      
+
         setCanvasItems((currentItems) => {
-          const selectedItems = currentItems.filter((item) =>
-            selectedIds.includes(item.id)
-          );
-      
-          const unselectedItems = currentItems.filter(
-            (item) => !selectedIds.includes(item.id)
-          );
-      
-          return [
-            ...selectedItems,
-            ...unselectedItems,
-          ];
+            const selectedItems = currentItems.filter((item) =>
+                selectedIds.includes(item.id)
+            );
+
+            const unselectedItems = currentItems.filter(
+                (item) => !selectedIds.includes(item.id)
+            );
+
+            return [
+                ...selectedItems,
+                ...unselectedItems,
+            ];
         });
-      }
+    }
 
     function moveForwardOneLayer() {
         if (selectedIds.length !== 1) {
@@ -354,13 +379,13 @@ export default function OutfitPage() {
         );
     }
     return (
-        <main className="relative flex flex-1 flex-col s gap-6 justify-center md:grid md:grid-cols-4 md:gap-2
+        <main className="relative flex flex-1 flex-col gap-6 justify-center items-center xl:grid xl:grid-cols-4 xl:gap-2 xl:items-stretch
         ">
 
             {/* desktop wardrobe */}
-            <div className="hidden min-h-0 md:flex md:space-x-3 md:col-span-1">
+            <div className="hidden min-h-0 xl:flex xl:gap-3 xl:col-span-1">
                 {/* category side menu */}
-                <div className="w-fit h-fit rounded-xl p-3 z-50 flex flex-col gap-2
+                <div className="w-fit rounded-xl p-3 z-50 flex flex-col gap-2
                  bg-white/70 backdrop-blur-2xl shadow-[0_4px_8px_rgba(0,0,0,0.08)]">
                     {categories.map((item) => (
                         <button
@@ -386,7 +411,7 @@ export default function OutfitPage() {
                             No clothing in this category yet
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 gap-2 content-start items-start overflow-y-auto md:p-1 2xl:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-2 content-start items-start overflow-y-auto xl:p-1 xl:grid-cols-2 2xl:grid-cols-3">
                             {items &&
                                 items.map((item) => (
                                     <button
@@ -421,8 +446,8 @@ export default function OutfitPage() {
 
             </div>
 
-            <div className="flex justify-center md:col-span-2 md:items-center md:px-12">
-                <div className="aspect-square w-full max-w-[calc(100vw-3rem)] md:max-w-140 xl:max-w-175">
+            <div className="flex min-w-0 w-full justify-center xl:col-span-2 xl:items-center">
+                <div className="flex min-w-0 w-full justify-center">
                     <OutfitCanvas
                         items={canvasItems}
                         selectedIds={selectedIds}
@@ -434,43 +459,43 @@ export default function OutfitPage() {
                 </div>
             </div>
 
-            <aside className="flex space-y-3 justify-center flex-col md:w-fit md:col-span-1">
-                <div className="flex w-full justify-center text-gray-800 md:flex-col md:space-y-1">
-                <CanvasButton 
-                    label="Reset"
-                    btnFunc={resetCanvas}
-                    btnDisabled={canvasItems.length === 0}
-                    icon={<FaRedoAlt size={16} />}
+            <aside className="flex space-y-3 justify-center max-w-md flex-col xl:w-fit xl:col-span-1 xl:items-stretch">
+                <div className="flex w-full justify-center text-gray-800 xl:flex-col xl:space-y-1">
+                    <CanvasButton
+                        label="Reset"
+                        btnFunc={resetCanvas}
+                        btnDisabled={canvasItems.length === 0}
+                        icon={<FaRedoAlt size={16} />}
                     />
-                    <CanvasButton 
-                    label="Bring Forward"
-                    btnFunc={moveForwardOneLayer}
-                    btnDisabled={canvasItems.length === 0}
-                    icon={<RiBringForward size={24} />}
+                    <CanvasButton
+                        label="Bring Forward"
+                        btnFunc={moveForwardOneLayer}
+                        btnDisabled={canvasItems.length === 0}
+                        icon={<RiBringForward size={24} />}
                     />
-                    <CanvasButton 
-                    label="Bring to Front"
-                    btnFunc={bringToFront}
-                    btnDisabled={canvasItems.length === 0}
-                    icon={<RiBringToFront size={24} />}
+                    <CanvasButton
+                        label="Bring to Front"
+                        btnFunc={bringToFront}
+                        btnDisabled={canvasItems.length === 0}
+                        icon={<RiBringToFront size={24} />}
                     />
-                    <CanvasButton 
-                    label="Send Backwards"
-                    btnFunc={moveBackwardOneLayer}
-                    btnDisabled={canvasItems.length === 0}
-                    icon={<RiSendBackward size={24} />}
+                    <CanvasButton
+                        label="Send Backwards"
+                        btnFunc={moveBackwardOneLayer}
+                        btnDisabled={canvasItems.length === 0}
+                        icon={<RiSendBackward size={24} />}
                     />
-                    <CanvasButton 
-                    label="Send to back"
-                    btnFunc={sendToBack}
-                    btnDisabled={canvasItems.length === 0}
-                    icon={<RiSendToBack size={24} />}
+                    <CanvasButton
+                        label="Send to back"
+                        btnFunc={sendToBack}
+                        btnDisabled={canvasItems.length === 0}
+                        icon={<RiSendToBack size={24} />}
                     />
-                    <CanvasButton 
-                    label="Delete"
-                    btnFunc={deleteSelectedItem}
-                    btnDisabled={canvasItems.length === 0}
-                    icon={<RiDeleteBin6Fill size={24} />}
+                    <CanvasButton
+                        label="Delete"
+                        btnFunc={deleteSelectedItem}
+                        btnDisabled={canvasItems.length === 0}
+                        icon={<RiDeleteBin6Fill size={24} />}
                     />
                 </div>
 
@@ -478,7 +503,7 @@ export default function OutfitPage() {
                     type="button"
                     disabled={isSaving || canvasItems.length === 0}
                     onClick={saveOutfit}
-                    className="flex justify-center rounded-lg items-center md:justify-start space-x-2 px-3 py-2
+                    className="flex justify-center rounded-lg items-center xl:justify-start space-x-2 px-3 py-2
                     bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
                      enabled:hover:bg-blue-500 
                      disabled:cursor-not-allowed disabled:bg-gray-300"
@@ -506,10 +531,13 @@ export default function OutfitPage() {
 
 
             {/* mobile wardrobe */}
-            <div className="fixed bottom-20 left-6 right-6 z-40 flex gap-2 py-2 pr-2 md:hidden">
+            <div className="fixed bottom-20 left-6 right-6 z-40 flex gap-2 py-2 pr-2 
+                md:static md:w-full md:max-w-2xl
+                md:mx-auto md:px-4
+                xl:hidden">
 
                 {/* category selector */}
-                <div className="relative shrink-0">
+                <div ref={dropdownRef} className="relative shrink-0">
 
                     {isCategoryMenuOpen && (
                         <div className="absolute bottom-full left-2 mb-2 p-1 flex w-36 flex-col space-y-1 rounded-lg bg-white ring-1 ring-black/5 shadow-lg">

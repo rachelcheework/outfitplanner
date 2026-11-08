@@ -1,4 +1,5 @@
 import { clothingCategories, type ClothingCategory } from "../../../constants/Categories";
+import { IoIosArrowDown } from "react-icons/io";
 
 
 interface EditingWardrobeItemModalProps {
@@ -63,27 +64,33 @@ const EditWardrobeItemModal = ({
                 <div className="mb-6">
                     <label className="mb-1 block text-xs md:text-sm font-medium">Category</label>
 
-                    <select
-                        value={editCategory}
-                        onChange={(e) => onEditedCategoryChange(e.target.value as ClothingCategory)}
-                        className="text-sm md:text-base w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
-                    >
-                        {/* <option value="">Select a category</option> */}
+                    <div className="relative w-full">
+                        <select
+                            value={editCategory}
+                            onChange={(e) => onEditedCategoryChange(e.target.value as ClothingCategory)}
+                            className="text-sm appearance-none md:text-base w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-black"
+                        >
+                            {/* <option value="">Select a category</option> */}
 
-                        {clothingCategories.map((cat) => (
-                            <option key={cat} value={cat}>
-                                {cat}
-                            </option>
-                        ))}
-                    </select>
+                            {clothingCategories.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+
+                        </select>
+                        <IoIosArrowDown size={18} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-700" />
+                    </div>
+
+
                 </div>
 
-                    {editingSuccessMessage && (
-                        <p className="text-xs md:text-base text-green-500 mb-6">{editingSuccessMessage}</p>
-                    )}
-                    {editingModalError && (
-                        <p className="text-xs md:text-base text-red-500 mb-6">{editingModalError}</p>
-                    )}
+                {editingSuccessMessage && (
+                    <p className="text-xs md:text-base text-green-500 mb-6">{editingSuccessMessage}</p>
+                )}
+                {editingModalError && (
+                    <p className="text-xs md:text-base text-red-500 mb-6">{editingModalError}</p>
+                )}
 
                 <div className="w-full flex justify-between">
                     <button

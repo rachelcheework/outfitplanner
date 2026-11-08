@@ -170,22 +170,22 @@ const Dnd = () => {
     };
 
     return (
-        <div className="flex flex-1 flex-col space-y-6 items-center justify-center md:justify-start md:min-h-0">
+        <div className="flex flex-1 flex-col space-y-3 md:space-y-6 items-center justify-center md:justify-start md:min-h-0">
 
             {/* Dropzone */}
             {!isRemovingBackground && stickerUrl === null && (<div
                 {...getRootProps()}
-                className={`w-96 h-60 border-2 border-dashed rounded-xl flex items-center justify-center cursor-pointer transition
+                className={`w-[75%] aspect-8/5 md:w-96 md:h-60 border-2 border-dashed rounded-xl flex items-center justify-center cursor-pointer transition
         ${isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"}`}
             >
                 <input {...getInputProps()} />
 
                 {isDragActive ? (
-                    <p className="text-gray-600">Drop the image here...</p>
+                    <p className="text-sm md:text-base text-gray-600">Drop the image here...</p>
                 ) : (
                     <div className="text-center text-gray-600">
-                        <p className="font-medium">Drag & drop clothing image</p>
-                        <p className="text-sm">or click to upload</p>
+                        <p className="text-sm md:text-base font-medium">Drag & drop clothing image</p>
+                        <p className="text-xs md:text-sm">or click to upload</p>
                     </div>
                 )}
             </div>)}
@@ -193,32 +193,32 @@ const Dnd = () => {
             {/* Loading */}
             {isRemovingBackground && (
                 <div className="flex flex-col items-center">
-                    <p className="text-blue-500 font-medium">
+                    <p className="text-sm md:text-base text-blue-500 font-medium">
                         Removing background...
                     </p>
-                    <div className="animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
+                    <div className="animate-spin rounded-full w-4 md:w-8 aspect-square border-2 md:border-4 border-blue-500 border-t-transparent"></div>
                 </div>
 
             )}
 
             {/* Error */}
             {dropzoneError && (
-                <p className="text-red-500">{dropzoneError}</p>
+                <p className="text-sm md:text-base text-red-500">{dropzoneError}</p>
             )}
 
             {/* Success */}
             {successMessage && (
-                <p className="text-green-500">{successMessage}</p>
+                <p className="text-sm md:text-base text-green-500">{successMessage}</p>
             )}
 
             {/* Preview */}
             {previewUrl && !stickerUrl && (
                 <div className="flex flex-col items-center gap-2">
-                    <p className="text-sm text-gray-500">Image Selected</p>
+                    <p className="text-xs md:text-sm text-gray-500">Image Selected</p>
                     <img
                         src={previewUrl}
                         alt="preview"
-                        className="max-w-xs rounded-lg shadow"
+                        className="max-w-1/2 md:max-w-xs rounded-lg shadow"
                     />
                 </div>
             )}
@@ -226,20 +226,20 @@ const Dnd = () => {
             {/* Final sticker */}
             {stickerUrl && (
                 <div className="flex flex-col items-center space-y-6">
-                    <p className="text-sm text-gray-500">Sticker</p>
+                    <p className="text-xs md:text-sm text-gray-500">Sticker</p>
                     <img
                         src={stickerUrl}
                         alt="sticker"
-                        className="max-w-xs rounded-lg
+                        className="max-w-1/2 md:max-w-xs rounded-lg
                                 border border-black/5
                                 bg-white/70
                                 backdrop-blur-xl
                                 shadow-[0_12px_32px_rgba(0,0,0,0.08)]"
                     />
                     <div className="flex space-x-3">
-                        <button className="rounded-lg px-4 py-2 bg-blue-200/50 text-blue-400 backdrop-blur-3xl hover:bg-blue-200 " onClick={redo}>Redo</button>
+                        <button className="text-sm px-2 py-1 rounded-xl md:rounded-lg md:text-base md:px-4 md:py-2 bg-blue-200/50 text-blue-400 backdrop-blur-3xl hover:bg-blue-200 " onClick={redo}>Redo</button>
                         <button
-                            className="rounded-lg bg-blue-500/80 px-4 py-2 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+                            className="text-sm px-2 py-1 rounded-xl md:rounded-lg md:text-base md:px-4 md:py-2 bg-blue-500/80 text-white ring-1 ring-black/5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]
                              hover:bg-blue-500"
                             onClick={() => dndDispatch({ type: "OPEN_MODAL" })}
                         >Add to Wardrobe</button>

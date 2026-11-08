@@ -197,14 +197,14 @@ export default function WardrobeCard({
           />
 
 
-          <div className="mt-3 flex h-1/4 flex-col items-center">
-            <p className="line-clamp-1 wrap-break-word text-sm font-medium text-gray-800 md:text-base">
+          <div className="pt-3 flex h-1/4 flex-col items-center">
+            <p className="wrap-break-word font-medium text-gray-800 text-sm line-clamp-2 lg:text-base">
               {itemName}
             </p>
 
-            <p className="mt-auto text-xs capitalize text-gray-500 md:text-sm">
+            {/* <p className="mt-auto text-xs capitalize text-gray-500 md:text-sm">
               {category}
-            </p>
+            </p> */}
           </div>
         </button>
 

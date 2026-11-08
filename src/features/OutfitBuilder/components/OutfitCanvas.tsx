@@ -37,19 +37,37 @@ export default function OutfitCanvas({
   const [canvasSize, setCanvasSize] = useState(0);
 
   useEffect(() => {
+    // const container = containerRef.current;
+
+    // if (!container) return;
+
+    // const resizeObserver = new ResizeObserver(() => {
+    //   setCanvasSize(container.clientWidth);
+    // });
+
+    // resizeObserver.observe(container);
+
+    // return () => {
+    //   resizeObserver.disconnect();
+    // };
     const container = containerRef.current;
-
     if (!container) return;
-
-    const resizeObserver = new ResizeObserver(() => {
-      setCanvasSize(container.clientWidth);
-    });
-
-    resizeObserver.observe(container);
-
-    return () => {
-      resizeObserver.disconnect();
+  
+    const updateCanvasSize = () => {
+      const width = container.getBoundingClientRect().width;
+  
+      if (width > 0) {
+        setCanvasSize(width);
+      }
     };
+  
+    updateCanvasSize();
+  
+    const observer = new ResizeObserver(updateCanvasSize);
+  
+    observer.observe(container);
+  
+    return () => observer.disconnect();
   }, []);
 
   function updateItem(updatedItem: CanvasItem) {
@@ -93,8 +111,9 @@ export default function OutfitCanvas({
   return (
     <div
       ref={containerRef}
-      className="h-full w-full"
+      className="w-full max-w-[min(650px,75dvh)] aspect-square m-4"
     >
+      {canvasSize > 0 && (
       <Stage
         ref={stageRef}
         width={canvasSize}
@@ -127,6 +146,7 @@ export default function OutfitCanvas({
           ))}
         </Layer>
       </Stage>
+      )}
     </div>
   );
 }
